@@ -1,0 +1,3801 @@
+{
+  "startedTestsAt": "2022-07-28T09:10:15.141Z",
+  "endedTestsAt": "2022-07-28T09:18:53.383Z",
+  "totalDuration": 261545,
+  "totalSuites": 34,
+  "totalTests": 120,
+  "totalFailed": 1,
+  "totalPassed": 119,
+  "totalPending": 0,
+  "totalSkipped": 0,
+  "runs": [
+    {
+      "stats": {
+        "suites": 2,
+        "tests": 6,
+        "passes": 5,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 1,
+        "duration": 16886,
+        "startedAt": "2022-07-28T09:10:15.141Z",
+        "endedAt": "2022-07-28T09:10:32.027Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 2,
+        "tests": 6,
+        "passes": 5,
+        "pending": 0,
+        "failures": 1,
+        "start": "2022-07-28T09:10:15.153Z",
+        "end": "2022-07-28T09:10:32.108Z",
+        "duration": 16955
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    // Cypress starts out with a blank slate for each test\n    // so we must tell it to visit our website with the `cy.visit()` command.\n    // Since we want to visit the same URL at the start of all our tests,\n    // we include it in our beforeEach function so that it runs before each test\n    cy.visit('https://example.cypress.io/todo');\n  }"
+        },
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n      // We'll take the command we used above to check off an element\n      // Since we want to perform multiple tests that start with checking\n      // one element, we put it in the beforeEach hook\n      // so that it runs at the start of every test.\n      cy.contains('Pay electric bill').parent().find('input[type=checkbox]').check();\n    }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "example to-do app",
+            "displays two todo items by default"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // We use the `cy.get()` command to get all elements that match the selector.\n    // Then, we use `should` to assert that there are two matched items,\n    // which are the two default items.\n    cy.get('.todo-list li').should('have.length', 2); // We can go even further and check that the default todos each contain\n    // the correct text. We use the `first` and `last` functions\n    // to get just the first and last matched elements individually,\n    // and then perform an assertion with `should`.\n\n    cy.get('.todo-list li').first().should('have.text', 'Pay electric bill');\n    cy.get('.todo-list li').last().should('have.text', 'Walk the dog');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 19367,
+              "duration": 2068,
+              "startedAt": "2022-07-28T09:10:19.660Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "example to-do app",
+            "can add new todo items"
+          ],
+          "state": "failed",
+          "body": "() => {\n    // We'll store our item text in a variable so we can reuse it\n    const newItem = 'Feed the cat'; // Let's get the input element and use the `type` command to\n    // input our new list item. After typing the content of our item,\n    // we need to type the enter key as well in order to submit the input.\n    // This input has a data-test attribute so we'll use that to select the\n    // element in accordance with best practices:\n    // https://on.cypress.io/selecting-elements\n\n    cy.get('[data-test=new-todo]').type(`${newItem}{enter}`); // Now that we've typed our new item, let's check that it actually was added to the list.\n    // Since it's the newest item, it should exist as the last element in the list.\n    // In addition, with the two default items, we should have a total of 3 elements in the list.\n    // Since assertions yield the element that was asserted on,\n    // we can chain both of these assertions together into a single statement.\n\n    cy.get('.todo-list lii').should('have.length', 3).last().should('have.text', newItem);\n  }",
+          "displayError": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `.todo-list lii`, but never found it.\n    at Context.eval (https://example.cypress.io/__cypress/tests?p=cypress\\e2e\\1-getting-started\\todo.cy.js:145:30)",
+          "attempts": [
+            {
+              "state": "failed",
+              "error": {
+                "name": "AssertionError",
+                "message": "Timed out retrying after 4000ms: Expected to find element: `.todo-list lii`, but never found it.",
+                "stack": "    at Context.eval (https://example.cypress.io/__cypress/tests?p=cypress\\e2e\\1-getting-started\\todo.cy.js:145:30)",
+                "codeFrame": {
+                  "line": 55,
+                  "column": 8,
+                  "originalFile": "cypress/e2e/1-getting-started/todo.cy.js",
+                  "relativeFile": "cypress/e2e/1-getting-started/todo.cy.js",
+                  "absoluteFile": "C:\\Users\\User\\test\\cypress_totorial002/cypress/e2e/1-getting-started/todo.cy.js",
+                  "frame": "  53 |     // we can chain both of these assertions together into a single statement.\n  54 |     cy.get('.todo-list lii')\n> 55 |       .should('have.length', 3)\n     |        ^\n  56 |       .last()\n  57 |       .should('have.text', newItem)\n  58 |   })",
+                  "language": "js"
+                }
+              },
+              "videoTimestamp": 21511,
+              "duration": 5707,
+              "startedAt": "2022-07-28T09:10:21.804Z",
+              "screenshots": [
+                {
+                  "name": null,
+                  "takenAt": "2022-07-28T09:10:27.101Z",
+                  "path": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\screenshots\\1-getting-started\\todo.cy.js\\example to-do app -- can add new todo items (failed).png",
+                  "height": 720,
+                  "width": 1280
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": [
+            "example to-do app",
+            "can check off an item as completed"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // In addition to using the `get` command to get an element by selector,\n    // we can also use the `contains` command to get an element by its contents.\n    // However, this will yield the <label>, which is lowest-level element that contains the text.\n    // In order to check the item, we'll find the <input> element for this <label>\n    // by traversing up the dom to the parent element. From there, we can `find`\n    // the child checkbox <input> element and use the `check` command to check it.\n    cy.contains('Pay electric bill').parent().find('input[type=checkbox]').check(); // Now that we've checked the button, we can go ahead and make sure\n    // that the list element is now marked as completed.\n    // Again we'll use `contains` to find the <label> element and then use the `parents` command\n    // to traverse multiple levels up the dom until we find the corresponding <li> element.\n    // Once we get that element, we can assert that it has the completed class.\n\n    cy.contains('Pay electric bill').parents('li').should('have.class', 'completed');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 27605,
+              "duration": 863,
+              "startedAt": "2022-07-28T09:10:27.898Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "example to-do app",
+            "with a checked task",
+            "can filter for uncompleted tasks"
+          ],
+          "state": "passed",
+          "body": "() => {\n      // We'll click on the \"active\" button in order to\n      // display only incomplete items\n      cy.contains('Active').click(); // After filtering, we can assert that there is only the one\n      // incomplete item in the list.\n\n      cy.get('.todo-list li').should('have.length', 1).first().should('have.text', 'Walk the dog'); // For good measure, let's also assert that the task we checked off\n      // does not exist on the page.\n\n      cy.contains('Pay electric bill').should('not.exist');\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 28478,
+              "duration": 1306,
+              "startedAt": "2022-07-28T09:10:28.771Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "example to-do app",
+            "with a checked task",
+            "can filter for completed tasks"
+          ],
+          "state": "passed",
+          "body": "() => {\n      // We can perform similar steps as the test above to ensure\n      // that only completed tasks are shown\n      cy.contains('Completed').click();\n      cy.get('.todo-list li').should('have.length', 1).first().should('have.text', 'Pay electric bill');\n      cy.contains('Walk the dog').should('not.exist');\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 29795,
+              "duration": 994,
+              "startedAt": "2022-07-28T09:10:30.088Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "example to-do app",
+            "with a checked task",
+            "can delete all completed tasks"
+          ],
+          "state": "passed",
+          "body": "() => {\n      // First, let's click the \"Clear completed\" button\n      // `contains` is actually serving two purposes here.\n      // First, it's ensuring that the button exists within the dom.\n      // This button only appears when at least one task is checked\n      // so this command is implicitly verifying that it does exist.\n      // Second, it selects the button so we can click it.\n      cy.contains('Clear completed').click(); // Then we can make sure that there is only one element\n      // in the list and our element does not exist\n\n      cy.get('.todo-list li').should('have.length', 1).should('not.have.text', 'Pay electric bill'); // Finally, make sure that the clear button no longer exists.\n\n      cy.contains('Clear completed').should('not.exist');\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 30819,
+              "duration": 906,
+              "startedAt": "2022-07-28T09:10:31.112Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\1-getting-started\\todo.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "todo.cy.js",
+        "fileName": "todo",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "1-getting-started/todo.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/1-getting-started/todo.cy.js",
+        "relative": "cypress\\e2e\\1-getting-started\\todo.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/1-getting-started/todo.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 14,
+        "passes": 14,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 47803,
+        "startedAt": "2022-07-28T09:10:53.072Z",
+        "endedAt": "2022-07-28T09:11:40.875Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 14,
+        "passes": 14,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:10:53.082Z",
+        "end": "2022-07-28T09:11:41.030Z",
+        "duration": 47948
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/actions');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Actions",
+            ".type() - type into a DOM element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/type\n    cy.get('.action-email').type('fake@email.com').should('have.value', 'fake@email.com') // .type() with special character sequences\n    .type('{leftarrow}{rightarrow}{uparrow}{downarrow}').type('{del}{selectall}{backspace}') // .type() with key modifiers\n    .type('{alt}{option}') //these are equivalent\n    .type('{ctrl}{control}') //these are equivalent\n    .type('{meta}{command}{cmd}') //these are equivalent\n    .type('{shift}') // Delay each keypress by 0.1 sec\n    .type('slow.typing@email.com', {\n      delay: 100\n    }).should('have.value', 'slow.typing@email.com');\n    cy.get('.action-disabled') // Ignore error checking prior to type\n    // like whether the input is visible or disabled\n    .type('disabled error checking', {\n      force: true\n    }).should('have.value', 'disabled error checking');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 9690,
+              "duration": 8522,
+              "startedAt": "2022-07-28T09:10:57.502Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Actions",
+            ".focus() - focus on a DOM element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/focus\n    cy.get('.action-focus').focus().should('have.class', 'focus').prev().should('have.attr', 'style', 'color: orange;');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 18284,
+              "duration": 2032,
+              "startedAt": "2022-07-28T09:11:06.096Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Actions",
+            ".blur() - blur off a DOM element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/blur\n    cy.get('.action-blur').type('About to blur').blur().should('have.class', 'error').prev().should('have.attr', 'style', 'color: red;');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 20367,
+              "duration": 1636,
+              "startedAt": "2022-07-28T09:11:08.179Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Actions",
+            ".clear() - clears an input or textarea element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/clear\n    cy.get('.action-clear').type('Clear this text').should('have.value', 'Clear this text').clear().should('have.value', '');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 22012,
+              "duration": 2822,
+              "startedAt": "2022-07-28T09:11:09.824Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Actions",
+            ".submit() - submit a form"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/submit\n    cy.get('.action-form').find('[type=\"text\"]').type('HALFOFF');\n    cy.get('.action-form').submit().next().should('contain', 'Your form has been submitted!');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 24845,
+              "duration": 1599,
+              "startedAt": "2022-07-28T09:11:12.657Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Actions",
+            ".click() - click on a DOM element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/click\n    cy.get('.action-btn').click(); // You can click on 9 specific positions of an element:\n    //  -----------------------------------\n    // | topLeft        top       topRight |\n    // |                                   |\n    // |                                   |\n    // |                                   |\n    // | left          center        right |\n    // |                                   |\n    // |                                   |\n    // |                                   |\n    // | bottomLeft   bottom   bottomRight |\n    //  -----------------------------------\n    // clicking in the center of the element is the default\n\n    cy.get('#action-canvas').click();\n    cy.get('#action-canvas').click('topLeft');\n    cy.get('#action-canvas').click('top');\n    cy.get('#action-canvas').click('topRight');\n    cy.get('#action-canvas').click('left');\n    cy.get('#action-canvas').click('right');\n    cy.get('#action-canvas').click('bottomLeft');\n    cy.get('#action-canvas').click('bottom');\n    cy.get('#action-canvas').click('bottomRight'); // .click() accepts an x and y coordinate\n    // that controls where the click occurs :)\n\n    cy.get('#action-canvas').click(80, 75) // click 80px on x coord and 75px on y coord\n    .click(170, 75).click(80, 165).click(100, 185).click(125, 190).click(150, 185).click(170, 165); // click multiple elements by passing multiple: true\n\n    cy.get('.action-labels>.label').click({\n      multiple: true\n    }); // Ignore error checking prior to clicking\n\n    cy.get('.action-opacity>.btn').click({\n      force: true\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 26447,
+              "duration": 7716,
+              "startedAt": "2022-07-28T09:11:14.259Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Actions",
+            ".dblclick() - double click on a DOM element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/dblclick\n    // Our app has a listener on 'dblclick' event in our 'scripts.js'\n    // that hides the div and shows an input on double click\n    cy.get('.action-div').dblclick().should('not.be.visible');\n    cy.get('.action-input-hidden').should('be.visible');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 34168,
+              "duration": 1384,
+              "startedAt": "2022-07-28T09:11:21.980Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Actions",
+            ".rightclick() - right click on a DOM element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/rightclick\n    // Our app has a listener on 'contextmenu' event in our 'scripts.js'\n    // that hides the div and shows an input on right click\n    cy.get('.rightclick-action-div').rightclick().should('not.be.visible');\n    cy.get('.rightclick-action-input-hidden').should('be.visible');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 35561,
+              "duration": 1086,
+              "startedAt": "2022-07-28T09:11:23.373Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Actions",
+            ".check() - check a checkbox or radio element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/check\n    // By default, .check() will check all\n    // matching checkbox or radio elements in succession, one after another\n    cy.get('.action-checkboxes [type=\"checkbox\"]').not('[disabled]').check().should('be.checked');\n    cy.get('.action-radios [type=\"radio\"]').not('[disabled]').check().should('be.checked'); // .check() accepts a value argument\n\n    cy.get('.action-radios [type=\"radio\"]').check('radio1').should('be.checked'); // .check() accepts an array of values\n\n    cy.get('.action-multiple-checkboxes [type=\"checkbox\"]').check(['checkbox1', 'checkbox2']).should('be.checked'); // Ignore error checking prior to checking\n\n    cy.get('.action-checkboxes [disabled]').check({\n      force: true\n    }).should('be.checked');\n    cy.get('.action-radios [type=\"radio\"]').check('radio3', {\n      force: true\n    }).should('be.checked');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 36651,
+              "duration": 5180,
+              "startedAt": "2022-07-28T09:11:24.463Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Actions",
+            ".uncheck() - uncheck a checkbox element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/uncheck\n    // By default, .uncheck() will uncheck all matching\n    // checkbox elements in succession, one after another\n    cy.get('.action-check [type=\"checkbox\"]').not('[disabled]').uncheck().should('not.be.checked'); // .uncheck() accepts a value argument\n\n    cy.get('.action-check [type=\"checkbox\"]').check('checkbox1').uncheck('checkbox1').should('not.be.checked'); // .uncheck() accepts an array of values\n\n    cy.get('.action-check [type=\"checkbox\"]').check(['checkbox1', 'checkbox3']).uncheck(['checkbox1', 'checkbox3']).should('not.be.checked'); // Ignore error checking prior to unchecking\n\n    cy.get('.action-check [disabled]').uncheck({\n      force: true\n    }).should('not.be.checked');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 41896,
+              "duration": 3501,
+              "startedAt": "2022-07-28T09:11:29.708Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Actions",
+            ".select() - select an option in a <select> element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/select\n    // at first, no option should be selected\n    cy.get('.action-select').should('have.value', '--Select a fruit--'); // Select option(s) with matching text content\n\n    cy.get('.action-select').select('apples'); // confirm the apples were selected\n    // note that each value starts with \"fr-\" in our HTML\n\n    cy.get('.action-select').should('have.value', 'fr-apples');\n    cy.get('.action-select-multiple').select(['apples', 'oranges', 'bananas']) // when getting multiple values, invoke \"val\" method first\n    .invoke('val').should('deep.equal', ['fr-apples', 'fr-oranges', 'fr-bananas']); // Select option(s) with matching value\n\n    cy.get('.action-select').select('fr-bananas') // can attach an assertion right away to the element\n    .should('have.value', 'fr-bananas');\n    cy.get('.action-select-multiple').select(['fr-apples', 'fr-oranges', 'fr-bananas']).invoke('val').should('deep.equal', ['fr-apples', 'fr-oranges', 'fr-bananas']); // assert the selected values include oranges\n\n    cy.get('.action-select-multiple').invoke('val').should('include', 'fr-oranges');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 45400,
+              "duration": 2826,
+              "startedAt": "2022-07-28T09:11:33.212Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Actions",
+            ".scrollIntoView() - scroll an element into view"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/scrollintoview\n    // normally all of these buttons are hidden,\n    // because they're not within\n    // the viewable area of their parent\n    // (we need to scroll to see them)\n    cy.get('#scroll-horizontal button').should('not.be.visible'); // scroll the button into view, as if the user had scrolled\n\n    cy.get('#scroll-horizontal button').scrollIntoView().should('be.visible');\n    cy.get('#scroll-vertical button').should('not.be.visible'); // Cypress handles the scroll direction needed\n\n    cy.get('#scroll-vertical button').scrollIntoView().should('be.visible');\n    cy.get('#scroll-both button').should('not.be.visible'); // Cypress knows to scroll to the right and down\n\n    cy.get('#scroll-both button').scrollIntoView().should('be.visible');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 48236,
+              "duration": 1189,
+              "startedAt": "2022-07-28T09:11:36.048Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Actions",
+            ".trigger() - trigger an event on a DOM element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/trigger\n    // To interact with a range input (slider)\n    // we need to set its value & trigger the\n    // event to signal it changed\n    // Here, we invoke jQuery's val() method to set\n    // the value and trigger the 'change' event\n    cy.get('.trigger-input-range').invoke('val', 25).trigger('change').get('input[type=range]').siblings('p').should('have.text', '25');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 49428,
+              "duration": 1052,
+              "startedAt": "2022-07-28T09:11:37.240Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Actions",
+            "cy.scrollTo() - scroll the window or element to a position"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/scrollto\n    // You can scroll to 9 specific positions of an element:\n    //  -----------------------------------\n    // | topLeft        top       topRight |\n    // |                                   |\n    // |                                   |\n    // |                                   |\n    // | left          center        right |\n    // |                                   |\n    // |                                   |\n    // |                                   |\n    // | bottomLeft   bottom   bottomRight |\n    //  -----------------------------------\n    // if you chain .scrollTo() off of cy, we will\n    // scroll the entire window\n    cy.scrollTo('bottom');\n    cy.get('#scrollable-horizontal').scrollTo('right'); // or you can scroll to a specific coordinate:\n    // (x axis, y axis) in pixels\n\n    cy.get('#scrollable-vertical').scrollTo(250, 250); // or you can scroll to a specific percentage\n    // of the (width, height) of the element\n\n    cy.get('#scrollable-both').scrollTo('75%', '25%'); // control the easing of the scroll (default is 'swing')\n\n    cy.get('#scrollable-vertical').scrollTo('center', {\n      easing: 'linear'\n    }); // control the duration of the scroll (in ms)\n\n    cy.get('#scrollable-both').scrollTo('center', {\n      duration: 2000\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 50484,
+              "duration": 2570,
+              "startedAt": "2022-07-28T09:11:38.296Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\actions.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "actions.cy.js",
+        "fileName": "actions",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/actions.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/actions.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\actions.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/actions.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 2,
+        "passes": 2,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 7796,
+        "startedAt": "2022-07-28T09:12:06.357Z",
+        "endedAt": "2022-07-28T09:12:14.153Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 2,
+        "passes": 2,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:12:06.363Z",
+        "end": "2022-07-28T09:12:14.191Z",
+        "duration": 7828
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/aliasing');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Aliasing",
+            ".as() - alias a DOM element for later use"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/as\n    // Alias a DOM element for use later\n    // We don't have to traverse to the element\n    // later in our code, we reference it with @\n    cy.get('.as-table').find('tbody>tr').first().find('td').first().find('button').as('firstBtn'); // when we reference the alias, we place an\n    // @ in front of its name\n\n    cy.get('@firstBtn').click();\n    cy.get('@firstBtn').should('have.class', 'btn-success').and('contain', 'Changed');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 7196,
+              "duration": 1557,
+              "startedAt": "2022-07-28T09:12:10.297Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Aliasing",
+            ".as() - alias a route for later use"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // Alias the route to wait for its response\n    cy.intercept('GET', '**/comments/*').as('getComment'); // we have code that gets a comment when\n    // the button is clicked in scripts.js\n\n    cy.get('.network-btn').click(); // https://on.cypress.io/wait\n\n    cy.wait('@getComment').its('response.statusCode').should('eq', 200);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 8759,
+              "duration": 2247,
+              "startedAt": "2022-07-28T09:12:11.860Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\aliasing.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "aliasing.cy.js",
+        "fileName": "aliasing",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/aliasing.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/aliasing.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\aliasing.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/aliasing.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 3,
+        "tests": 9,
+        "passes": 9,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 13835,
+        "startedAt": "2022-07-28T09:12:25.129Z",
+        "endedAt": "2022-07-28T09:12:38.964Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 3,
+        "tests": 9,
+        "passes": 9,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:12:25.138Z",
+        "end": "2022-07-28T09:12:39.096Z",
+        "duration": 13958
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/assertions');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Assertions",
+            "Implicit Assertions",
+            ".should() - make an assertion about the current subject"
+          ],
+          "state": "passed",
+          "body": "() => {\n      // https://on.cypress.io/should\n      cy.get('.assertion-table').find('tbody tr:last').should('have.class', 'success').find('td').first() // checking the text of the <td> element in various ways\n      .should('have.text', 'Column content').should('contain', 'Column content').should('have.html', 'Column content') // chai-jquery uses \"is()\" to check if element matches selector\n      .should('match', 'td') // to match text content against a regular expression\n      // first need to invoke jQuery method text()\n      // and then match using regular expression\n      .invoke('text').should('match', /column content/i); // a better way to check element's text content against a regular expression\n      // is to use \"cy.contains\"\n      // https://on.cypress.io/contains\n\n      cy.get('.assertion-table').find('tbody tr:last') // finds first <td> element with text content matching regular expression\n      .contains('td', /column content/i).should('be.visible'); // for more information about asserting element's text\n      // see https://on.cypress.io/using-cypress-faq#How-do-I-get-an-element’s-text-contents\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 7767,
+              "duration": 3094,
+              "startedAt": "2022-07-28T09:12:29.089Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Assertions",
+            "Implicit Assertions",
+            ".and() - chain multiple assertions together"
+          ],
+          "state": "passed",
+          "body": "() => {\n      // https://on.cypress.io/and\n      cy.get('.assertions-link').should('have.class', 'active').and('have.attr', 'href').and('include', 'cypress.io');\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 10900,
+              "duration": 1132,
+              "startedAt": "2022-07-28T09:12:32.222Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Assertions",
+            "Explicit Assertions",
+            "expect - make an assertion about a specified subject"
+          ],
+          "state": "passed",
+          "body": "() => {\n      // We can use Chai's BDD style assertions\n      expect(true).to.be.true;\n      const o = {\n        foo: 'bar'\n      };\n      expect(o).to.equal(o);\n      expect(o).to.deep.equal({\n        foo: 'bar'\n      }); // matching text using regular expression\n\n      expect('FooBar').to.match(/bar$/i);\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 12044,
+              "duration": 532,
+              "startedAt": "2022-07-28T09:12:33.366Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Assertions",
+            "Explicit Assertions",
+            "pass your own callback function to should()"
+          ],
+          "state": "passed",
+          "body": "() => {\n      // Pass a function to should that can have any number\n      // of explicit assertions within it.\n      // The \".should(cb)\" function will be retried\n      // automatically until it passes all your explicit assertions or times out.\n      cy.get('.assertions-p').find('p').should($p => {\n        // https://on.cypress.io/$\n        // return an array of texts from all of the p's\n        const texts = $p.map((i, el) => Cypress.$(el).text()); // jquery map returns jquery object\n        // and .get() convert this to simple array\n\n        const paragraphs = texts.get(); // array should have length of 3\n\n        expect(paragraphs, 'has 3 paragraphs').to.have.length(3); // use second argument to expect(...) to provide clear\n        // message with each assertion\n\n        expect(paragraphs, 'has expected text in each paragraph').to.deep.eq(['Some text from first p', 'More text from second p', 'And even more text from third p']);\n      });\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 12580,
+              "duration": 655,
+              "startedAt": "2022-07-28T09:12:33.902Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Assertions",
+            "Explicit Assertions",
+            "finds element by class name regex"
+          ],
+          "state": "passed",
+          "body": "() => {\n      cy.get('.docs-header').find('div') // .should(cb) callback function will be retried\n      .should($div => {\n        expect($div).to.have.length(1);\n        const className = $div[0].className;\n        expect(className).to.match(/heading-/);\n      }) // .then(cb) callback is not retried,\n      // it either passes or fails\n      .then($div => {\n        expect($div, 'text content').to.have.text('Introduction');\n      });\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 13241,
+              "duration": 632,
+              "startedAt": "2022-07-28T09:12:34.563Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Assertions",
+            "Explicit Assertions",
+            "can throw any error"
+          ],
+          "state": "passed",
+          "body": "() => {\n      cy.get('.docs-header').find('div').should($div => {\n        if ($div.length !== 1) {\n          // you can throw your own errors\n          throw new Error('Did not find 1 element');\n        }\n\n        const className = $div[0].className;\n\n        if (!className.match(/heading-/)) {\n          throw new Error(`Could not find class \"heading-\" in ${className}`);\n        }\n      });\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 13878,
+              "duration": 695,
+              "startedAt": "2022-07-28T09:12:35.200Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Assertions",
+            "Explicit Assertions",
+            "matches unknown text between two elements"
+          ],
+          "state": "passed",
+          "body": "() => {\n      /**\r\n       * Text from the first element.\r\n       * @type {string}\r\n      */\n      let text;\n      /**\r\n       * Normalizes passed text,\r\n       * useful before comparing text with spaces and different capitalization.\r\n       * @param {string} s Text to normalize\r\n      */\n\n      const normalizeText = s => s.replace(/\\s/g, '').toLowerCase();\n\n      cy.get('.two-elements').find('.first').then($first => {\n        // save text from the first element\n        text = normalizeText($first.text());\n      });\n      cy.get('.two-elements').find('.second').should($div => {\n        // we can massage text before comparing\n        const secondText = normalizeText($div.text());\n        expect(secondText, 'second text').to.equal(text);\n      });\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 14580,
+              "duration": 549,
+              "startedAt": "2022-07-28T09:12:35.902Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Assertions",
+            "Explicit Assertions",
+            "assert - assert shape of an object"
+          ],
+          "state": "passed",
+          "body": "() => {\n      const person = {\n        name: 'Joe',\n        age: 20\n      };\n      assert.isObject(person, 'value is object');\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 15171,
+              "duration": 479,
+              "startedAt": "2022-07-28T09:12:36.493Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Assertions",
+            "Explicit Assertions",
+            "retries the should callback until assertions pass"
+          ],
+          "state": "passed",
+          "body": "() => {\n      cy.get('#random-number').should($div => {\n        const n = parseFloat($div.text());\n        expect(n).to.be.gte(1).and.be.lte(10);\n      });\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 15664,
+              "duration": 1971,
+              "startedAt": "2022-07-28T09:12:36.986Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\assertions.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "assertions.cy.js",
+        "fileName": "assertions",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/assertions.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/assertions.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\assertions.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/assertions.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 2,
+        "tests": 8,
+        "passes": 8,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 9049,
+        "startedAt": "2022-07-28T09:12:53.429Z",
+        "endedAt": "2022-07-28T09:13:02.478Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 2,
+        "tests": 8,
+        "passes": 8,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:12:53.433Z",
+        "end": "2022-07-28T09:13:02.599Z",
+        "duration": 9166
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/connectors');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Connectors",
+            ".each() - iterate over an array of elements"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/each\n    cy.get('.connectors-each-ul>li').each(($el, index, $list) => {\n      console.log($el, index, $list);\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 6523,
+              "duration": 1211,
+              "startedAt": "2022-07-28T09:12:56.665Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Connectors",
+            ".its() - get properties on the current subject"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/its\n    cy.get('.connectors-its-ul>li') // calls the 'length' property yielding that value\n    .its('length').should('be.gt', 2);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 7750,
+              "duration": 614,
+              "startedAt": "2022-07-28T09:12:57.892Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Connectors",
+            ".invoke() - invoke a function on the current subject"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // our div is hidden in our script.js\n    // $('.connectors-div').hide()\n    // https://on.cypress.io/invoke\n    cy.get('.connectors-div').should('be.hidden') // call the jquery method 'show' on the 'div.container'\n    .invoke('show').should('be.visible');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 8369,
+              "duration": 822,
+              "startedAt": "2022-07-28T09:12:58.511Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Connectors",
+            ".spread() - spread an array as individual args to callback function"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/spread\n    const arr = ['foo', 'bar', 'baz'];\n    cy.wrap(arr).spread((foo, bar, baz) => {\n      expect(foo).to.eq('foo');\n      expect(bar).to.eq('bar');\n      expect(baz).to.eq('baz');\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 9214,
+              "duration": 939,
+              "startedAt": "2022-07-28T09:12:59.356Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Connectors",
+            ".then()",
+            "invokes a callback function with the current subject"
+          ],
+          "state": "passed",
+          "body": "() => {\n      // https://on.cypress.io/then\n      cy.get('.connectors-list > li').then($lis => {\n        expect($lis, '3 items').to.have.length(3);\n        expect($lis.eq(0), 'first item').to.contain('Walk the dog');\n        expect($lis.eq(1), 'second item').to.contain('Feed the cat');\n        expect($lis.eq(2), 'third item').to.contain('Write JavaScript');\n      });\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 10173,
+              "duration": 600,
+              "startedAt": "2022-07-28T09:13:00.315Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Connectors",
+            ".then()",
+            "yields the returned value to the next command"
+          ],
+          "state": "passed",
+          "body": "() => {\n      cy.wrap(1).then(num => {\n        expect(num).to.equal(1);\n        return 2;\n      }).then(num => {\n        expect(num).to.equal(2);\n      });\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 10778,
+              "duration": 491,
+              "startedAt": "2022-07-28T09:13:00.920Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Connectors",
+            ".then()",
+            "yields the original subject without return"
+          ],
+          "state": "passed",
+          "body": "() => {\n      cy.wrap(1).then(num => {\n        expect(num).to.equal(1); // note that nothing is returned from this callback\n      }).then(num => {\n        // this callback receives the original unchanged value 1\n        expect(num).to.equal(1);\n      });\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 11308,
+              "duration": 518,
+              "startedAt": "2022-07-28T09:13:01.450Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Connectors",
+            ".then()",
+            "yields the value yielded by the last Cypress command inside"
+          ],
+          "state": "passed",
+          "body": "() => {\n      cy.wrap(1).then(num => {\n        expect(num).to.equal(1); // note how we run a Cypress command\n        // the result yielded by this Cypress command\n        // will be passed to the second \".then\"\n\n        cy.wrap(2);\n      }).then(num => {\n        // this callback receives the value yielded by \"cy.wrap(2)\"\n        expect(num).to.equal(2);\n      });\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 11831,
+              "duration": 498,
+              "startedAt": "2022-07-28T09:13:01.973Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\connectors.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "connectors.cy.js",
+        "fileName": "connectors",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/connectors.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/connectors.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\connectors.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/connectors.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 5,
+        "passes": 5,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 9140,
+        "startedAt": "2022-07-28T09:13:13.893Z",
+        "endedAt": "2022-07-28T09:13:23.033Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 5,
+        "passes": 5,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:13:13.907Z",
+        "end": "2022-07-28T09:13:23.135Z",
+        "duration": 9228
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    Cypress.Cookies.debug(true);\n    cy.visit('https://example.cypress.io/commands/cookies'); // clear cookies again after visiting to remove\n    // any 3rd party cookies picked up such as cloudflare\n\n    cy.clearCookies();\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Cookies",
+            "cy.getCookie() - get a browser cookie"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/getcookie\n    cy.get('#getCookie .set-a-cookie').click(); // cy.getCookie() yields a cookie object\n\n    cy.getCookie('token').should('have.property', 'value', '123ABC');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 6389,
+              "duration": 1389,
+              "startedAt": "2022-07-28T09:13:17.122Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cookies",
+            "cy.getCookies() - get browser cookies"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/getcookies\n    cy.getCookies().should('be.empty');\n    cy.get('#getCookies .set-a-cookie').click(); // cy.getCookies() yields an array of cookies\n\n    cy.getCookies().should('have.length', 1).should(cookies => {\n      // each cookie has these properties\n      expect(cookies[0]).to.have.property('name', 'token');\n      expect(cookies[0]).to.have.property('value', '123ABC');\n      expect(cookies[0]).to.have.property('httpOnly', false);\n      expect(cookies[0]).to.have.property('secure', false);\n      expect(cookies[0]).to.have.property('domain');\n      expect(cookies[0]).to.have.property('path');\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 7787,
+              "duration": 927,
+              "startedAt": "2022-07-28T09:13:18.520Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cookies",
+            "cy.setCookie() - set a browser cookie"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/setcookie\n    cy.getCookies().should('be.empty');\n    cy.setCookie('foo', 'bar'); // cy.getCookie() yields a cookie object\n\n    cy.getCookie('foo').should('have.property', 'value', 'bar');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 8720,
+              "duration": 1847,
+              "startedAt": "2022-07-28T09:13:19.453Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cookies",
+            "cy.clearCookie() - clear a browser cookie"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/clearcookie\n    cy.getCookie('token').should('be.null');\n    cy.get('#clearCookie .set-a-cookie').click();\n    cy.getCookie('token').should('have.property', 'value', '123ABC'); // cy.clearCookies() yields null\n\n    cy.clearCookie('token').should('be.null');\n    cy.getCookie('token').should('be.null');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 10593,
+              "duration": 957,
+              "startedAt": "2022-07-28T09:13:21.326Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cookies",
+            "cy.clearCookies() - clear browser cookies"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/clearcookies\n    cy.getCookies().should('be.empty');\n    cy.get('#clearCookies .set-a-cookie').click();\n    cy.getCookies().should('have.length', 1); // cy.clearCookies() yields null\n\n    cy.clearCookies();\n    cy.getCookies().should('be.empty');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 11561,
+              "duration": 735,
+              "startedAt": "2022-07-28T09:13:22.294Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\cookies.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "cookies.cy.js",
+        "fileName": "cookies",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/cookies.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/cookies.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\cookies.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/cookies.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 10,
+        "tests": 12,
+        "passes": 12,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 13209,
+        "startedAt": "2022-07-28T09:13:34.707Z",
+        "endedAt": "2022-07-28T09:13:47.916Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 10,
+        "tests": 12,
+        "passes": 12,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:13:34.713Z",
+        "end": "2022-07-28T09:13:48.038Z",
+        "duration": 13325
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/cypress-api');\n  }"
+        },
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/cypress-api');\n  }"
+        },
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/cypress-api');\n  }"
+        },
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/cypress-api');\n  }"
+        },
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/cypress-api');\n  }"
+        },
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/cypress-api');\n  }"
+        },
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/cypress-api');\n  }"
+        },
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/cypress-api');\n  }"
+        },
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/cypress-api');\n  }"
+        },
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/cypress-api');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Cypress.Commands",
+            ".add() - create a custom command"
+          ],
+          "state": "passed",
+          "body": "() => {\n    Cypress.Commands.add('console', {\n      prevSubject: true\n    }, (subject, method) => {\n      // the previous subject is automatically received\n      // and the commands arguments are shifted\n      // allow us to change the console method used\n      method = method || 'log'; // log the subject to the console\n\n      console[method]('The subject is', subject); // whatever we return becomes the new subject\n      // we don't want to change the subject so\n      // we return whatever was passed in\n\n      return subject;\n    });\n    cy.get('button').console('info').then($button => {// subject is still $button\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 7311,
+              "duration": 1468,
+              "startedAt": "2022-07-28T09:13:38.605Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cypress.Cookies",
+            ".debug() - enable or disable debugging"
+          ],
+          "state": "passed",
+          "body": "() => {\n    Cypress.Cookies.debug(true); // Cypress will now log in the console when\n    // cookies are set or cleared\n\n    cy.setCookie('fakeCookie', '123ABC');\n    cy.clearCookie('fakeCookie');\n    cy.setCookie('fakeCookie', '123ABC');\n    cy.clearCookie('fakeCookie');\n    cy.setCookie('fakeCookie', '123ABC');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 8819,
+              "duration": 1094,
+              "startedAt": "2022-07-28T09:13:40.113Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cypress.Cookies",
+            ".preserveOnce() - preserve cookies by key"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // normally cookies are reset after each test\n    cy.getCookie('fakeCookie').should('not.be.ok'); // preserving a cookie will not clear it when\n    // the next test starts\n\n    cy.setCookie('lastCookie', '789XYZ');\n    Cypress.Cookies.preserveOnce('lastCookie');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 9918,
+              "duration": 670,
+              "startedAt": "2022-07-28T09:13:41.212Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cypress.Cookies",
+            ".defaults() - set defaults for all cookies"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // now any cookie with the name 'session_id' will\n    // not be cleared before each new test runs\n    Cypress.Cookies.defaults({\n      preserve: 'session_id'\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 10595,
+              "duration": 577,
+              "startedAt": "2022-07-28T09:13:41.889Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cypress.arch",
+            "Get CPU architecture name of underlying OS"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/arch\n    expect(Cypress.arch).to.exist;\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 11180,
+              "duration": 584,
+              "startedAt": "2022-07-28T09:13:42.474Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cypress.config()",
+            "Get and set configuration options"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/config\n    let myConfig = Cypress.config();\n    expect(myConfig).to.have.property('animationDistanceThreshold', 5);\n    expect(myConfig).to.have.property('baseUrl', null);\n    expect(myConfig).to.have.property('defaultCommandTimeout', 4000);\n    expect(myConfig).to.have.property('requestTimeout', 5000);\n    expect(myConfig).to.have.property('responseTimeout', 30000);\n    expect(myConfig).to.have.property('viewportHeight', 660);\n    expect(myConfig).to.have.property('viewportWidth', 1000);\n    expect(myConfig).to.have.property('pageLoadTimeout', 60000);\n    expect(myConfig).to.have.property('waitForAnimations', true);\n    expect(Cypress.config('pageLoadTimeout')).to.eq(60000); // this will change the config for the rest of your tests!\n\n    Cypress.config('pageLoadTimeout', 20000);\n    expect(Cypress.config('pageLoadTimeout')).to.eq(20000);\n    Cypress.config('pageLoadTimeout', 60000);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 11770,
+              "duration": 809,
+              "startedAt": "2022-07-28T09:13:43.064Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cypress.dom",
+            ".isHidden() - determine if a DOM element is hidden"
+          ],
+          "state": "passed",
+          "body": "() => {\n    let hiddenP = Cypress.$('.dom-p p.hidden').get(0);\n    let visibleP = Cypress.$('.dom-p p.visible').get(0); // our first paragraph has css class 'hidden'\n\n    expect(Cypress.dom.isHidden(hiddenP)).to.be.true;\n    expect(Cypress.dom.isHidden(visibleP)).to.be.false;\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 12590,
+              "duration": 540,
+              "startedAt": "2022-07-28T09:13:43.884Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cypress.env()",
+            "Get environment variables"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/env\n    // set multiple environment variables\n    Cypress.env({\n      host: 'veronica.dev.local',\n      api_server: 'http://localhost:8888/v1/'\n    }); // get environment variable\n\n    expect(Cypress.env('host')).to.eq('veronica.dev.local'); // set environment variable\n\n    Cypress.env('api_server', 'http://localhost:8888/v2/');\n    expect(Cypress.env('api_server')).to.eq('http://localhost:8888/v2/'); // get all environment variable\n\n    expect(Cypress.env()).to.have.property('host', 'veronica.dev.local');\n    expect(Cypress.env()).to.have.property('api_server', 'http://localhost:8888/v2/');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 13190,
+              "duration": 778,
+              "startedAt": "2022-07-28T09:13:44.484Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cypress.log",
+            "Control what is printed to the Command Log"
+          ],
+          "state": "passed",
+          "body": "() => {// https://on.cypress.io/cypress-log\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 13976,
+              "duration": 555,
+              "startedAt": "2022-07-28T09:13:45.270Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cypress.platform",
+            "Get underlying OS name"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/platform\n    expect(Cypress.platform).to.be.exist;\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 14576,
+              "duration": 613,
+              "startedAt": "2022-07-28T09:13:45.870Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cypress.version",
+            "Get current version of Cypress being run"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/version\n    expect(Cypress.version).to.be.exist;\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 15194,
+              "duration": 617,
+              "startedAt": "2022-07-28T09:13:46.488Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Cypress.spec",
+            "Get current spec information"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/spec\n    // wrap the object so we can inspect it easily by clicking in the command log\n    cy.wrap(Cypress.spec).should('include.keys', ['name', 'relative', 'absolute']);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 15817,
+              "duration": 758,
+              "startedAt": "2022-07-28T09:13:47.111Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\cypress_api.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "cypress_api.cy.js",
+        "fileName": "cypress_api",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/cypress_api.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/cypress_api.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\cypress_api.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/cypress_api.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 4,
+        "passes": 4,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 8147,
+        "startedAt": "2022-07-28T09:14:00.998Z",
+        "endedAt": "2022-07-28T09:14:09.145Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 4,
+        "passes": 4,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:14:01.013Z",
+        "end": "2022-07-28T09:14:09.255Z",
+        "duration": 8242
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/files');\n  }"
+        },
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    // load example.json fixture file and store\n    // in the test context object\n    cy.fixture('example.json').as('example');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Files",
+            "cy.fixture() - load a fixture"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/fixture\n    // Instead of writing a response inline you can\n    // use a fixture file's content.\n    // when application makes an Ajax request matching \"GET **/comments/*\"\n    // Cypress will intercept it and reply with the object in `example.json` fixture\n    cy.intercept('GET', '**/comments/*', {\n      fixture: 'example.json'\n    }).as('getComment'); // we have code that gets a comment when\n    // the button is clicked in scripts.js\n\n    cy.get('.fixture-btn').click();\n    cy.wait('@getComment').its('response.body').should('have.property', 'name').and('include', 'Using fixtures to represent data');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 6827,
+              "duration": 1716,
+              "startedAt": "2022-07-28T09:14:04.661Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Files",
+            "cy.fixture() or require - load a fixture"
+          ],
+          "state": "passed",
+          "body": "function () {\n    // we are inside the \"function () { ... }\"\n    // callback and can use test context object \"this\"\n    // \"this.example\" was loaded in \"beforeEach\" function callback\n    expect(this.example, 'fixture in the test context').to.deep.equal(requiredExample); // or use \"cy.wrap\" and \"should('deep.equal', ...)\" assertion\n\n    cy.wrap(this.example).should('deep.equal', requiredExample);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 8552,
+              "duration": 579,
+              "startedAt": "2022-07-28T09:14:06.386Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Files",
+            "cy.readFile() - read file contents"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/readfile\n    // You can read a file and yield its contents\n    // The filePath is relative to your project's root.\n    cy.readFile(Cypress.config('configFile')).then(config => {\n      expect(config).to.be.an('string');\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 9137,
+              "duration": 835,
+              "startedAt": "2022-07-28T09:14:06.971Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Files",
+            "cy.writeFile() - write to a file"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/writefile\n    // You can write to a file\n    // Use a response from a request to automatically\n    // generate a fixture file for use later\n    cy.request('https://jsonplaceholder.cypress.io/users').then(response => {\n      cy.writeFile('cypress/fixtures/users.json', response.body);\n    });\n    cy.fixture('users').should(users => {\n      expect(users[0].name).to.exist;\n    }); // JavaScript arrays and objects are stringified\n    // and formatted into text.\n\n    cy.writeFile('cypress/fixtures/profile.json', {\n      id: 8739,\n      name: 'Jane',\n      email: 'jane@example.com'\n    });\n    cy.fixture('profile').should(profile => {\n      expect(profile.name).to.eq('Jane');\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 9977,
+              "duration": 1328,
+              "startedAt": "2022-07-28T09:14:07.811Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\files.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "files.cy.js",
+        "fileName": "files",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/files.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/files.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\files.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/files.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 1,
+        "passes": 1,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 5634,
+        "startedAt": "2022-07-28T09:14:19.435Z",
+        "endedAt": "2022-07-28T09:14:25.069Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 1,
+        "passes": 1,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:14:19.440Z",
+        "end": "2022-07-28T09:14:25.150Z",
+        "duration": 5710
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/local-storage');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Local Storage",
+            "cy.clearLocalStorage() - clear all data in local storage"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/clearlocalstorage\n    cy.get('.ls-btn').click().should(() => {\n      expect(localStorage.getItem('prop1')).to.eq('red');\n      expect(localStorage.getItem('prop2')).to.eq('blue');\n      expect(localStorage.getItem('prop3')).to.eq('magenta');\n    }); // clearLocalStorage() yields the localStorage object\n\n    cy.clearLocalStorage().should(ls => {\n      expect(ls.getItem('prop1')).to.be.null;\n      expect(ls.getItem('prop2')).to.be.null;\n      expect(ls.getItem('prop3')).to.be.null;\n    });\n    cy.get('.ls-btn').click().should(() => {\n      expect(localStorage.getItem('prop1')).to.eq('red');\n      expect(localStorage.getItem('prop2')).to.eq('blue');\n      expect(localStorage.getItem('prop3')).to.eq('magenta');\n    }); // Clear key matching string in Local Storage\n\n    cy.clearLocalStorage('prop1').should(ls => {\n      expect(ls.getItem('prop1')).to.be.null;\n      expect(ls.getItem('prop2')).to.eq('blue');\n      expect(ls.getItem('prop3')).to.eq('magenta');\n    });\n    cy.get('.ls-btn').click().should(() => {\n      expect(localStorage.getItem('prop1')).to.eq('red');\n      expect(localStorage.getItem('prop2')).to.eq('blue');\n      expect(localStorage.getItem('prop3')).to.eq('magenta');\n    }); // Clear keys matching regex in Local Storage\n\n    cy.clearLocalStorage(/prop1|2/).should(ls => {\n      expect(ls.getItem('prop1')).to.be.null;\n      expect(ls.getItem('prop2')).to.be.null;\n      expect(ls.getItem('prop3')).to.eq('magenta');\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 6396,
+              "duration": 2384,
+              "startedAt": "2022-07-28T09:14:22.677Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\local_storage.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "local_storage.cy.js",
+        "fileName": "local_storage",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/local_storage.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/local_storage.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\local_storage.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/local_storage.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 3,
+        "passes": 3,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 5846,
+        "startedAt": "2022-07-28T09:14:34.682Z",
+        "endedAt": "2022-07-28T09:14:40.528Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 3,
+        "passes": 3,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:14:34.695Z",
+        "end": "2022-07-28T09:14:40.609Z",
+        "duration": 5914
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/location');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Location",
+            "cy.hash() - get the current URL hash"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/hash\n    cy.hash().should('be.empty');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 6456,
+              "duration": 1102,
+              "startedAt": "2022-07-28T09:14:38.065Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Location",
+            "cy.location() - get window.location"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/location\n    cy.location().should(location => {\n      expect(location.hash).to.be.empty;\n      expect(location.href).to.eq('https://example.cypress.io/commands/location');\n      expect(location.host).to.eq('example.cypress.io');\n      expect(location.hostname).to.eq('example.cypress.io');\n      expect(location.origin).to.eq('https://example.cypress.io');\n      expect(location.pathname).to.eq('/commands/location');\n      expect(location.port).to.eq('');\n      expect(location.protocol).to.eq('https:');\n      expect(location.search).to.be.empty;\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 7572,
+              "duration": 876,
+              "startedAt": "2022-07-28T09:14:39.181Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Location",
+            "cy.url() - get the current URL"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/url\n    cy.url().should('eq', 'https://example.cypress.io/commands/location');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 8456,
+              "duration": 452,
+              "startedAt": "2022-07-28T09:14:40.065Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\location.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "location.cy.js",
+        "fileName": "location",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/location.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/location.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\location.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/location.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 2,
+        "tests": 6,
+        "passes": 6,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 12791,
+        "startedAt": "2022-07-28T09:14:49.560Z",
+        "endedAt": "2022-07-28T09:15:02.351Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 2,
+        "tests": 6,
+        "passes": 6,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:14:49.566Z",
+        "end": "2022-07-28T09:15:02.459Z",
+        "duration": 12893
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/misc');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Misc",
+            ".end() - end the command chain"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/end\n    // cy.end is useful when you want to end a chain of commands\n    // and force Cypress to re-query from the root element\n    cy.get('.misc-table').within(() => {\n      // ends the current chain and yields null\n      cy.contains('Cheryl').click().end(); // queries the entire table again\n\n      cy.contains('Charles').click();\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 7229,
+              "duration": 1507,
+              "startedAt": "2022-07-28T09:14:53.614Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Misc",
+            "cy.exec() - execute a system command"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // execute a system command.\n    // so you can take actions necessary for\n    // your test outside the scope of Cypress.\n    // https://on.cypress.io/exec\n    // we can use Cypress.platform string to\n    // select appropriate command\n    // https://on.cypress/io/platform\n    cy.log(`Platform ${Cypress.platform} architecture ${Cypress.arch}`); // on CircleCI Windows build machines we have a failure to run bash shell\n    // https://github.com/cypress-io/cypress/issues/5169\n    // so skip some of the tests by passing flag \"--env circle=true\"\n\n    const isCircleOnWindows = Cypress.platform === 'win32' && Cypress.env('circle');\n\n    if (isCircleOnWindows) {\n      cy.log('Skipping test on CircleCI');\n      return;\n    } // cy.exec problem on Shippable CI\n    // https://github.com/cypress-io/cypress/issues/6718\n\n\n    const isShippable = Cypress.platform === 'linux' && Cypress.env('shippable');\n\n    if (isShippable) {\n      cy.log('Skipping test on ShippableCI');\n      return;\n    }\n\n    cy.exec('echo Jane Lane').its('stdout').should('contain', 'Jane Lane');\n\n    if (Cypress.platform === 'win32') {\n      cy.exec(`print ${Cypress.config('configFile')}`).its('stderr').should('be.empty');\n    } else {\n      cy.exec(`cat ${Cypress.config('configFile')}`).its('stderr').should('be.empty');\n      cy.exec('pwd').its('code').should('eq', 0);\n    }\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 8743,
+              "duration": 1242,
+              "startedAt": "2022-07-28T09:14:55.128Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Misc",
+            "cy.focused() - get the DOM element that has focus"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/focused\n    cy.get('.misc-form').find('#name').click();\n    cy.focused().should('have.id', 'name');\n    cy.get('.misc-form').find('#description').click();\n    cy.focused().should('have.id', 'description');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 9993,
+              "duration": 1237,
+              "startedAt": "2022-07-28T09:14:56.378Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Misc",
+            "cy.wrap() - wrap an object"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/wrap\n    cy.wrap({\n      foo: 'bar'\n    }).should('have.property', 'foo').and('include', 'bar');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 11236,
+              "duration": 490,
+              "startedAt": "2022-07-28T09:14:57.621Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Misc",
+            "Cypress.Screenshot",
+            "cy.screenshot() - take a screenshot"
+          ],
+          "state": "passed",
+          "body": "() => {\n      // https://on.cypress.io/screenshot\n      cy.screenshot('my-image');\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 11784,
+              "duration": 3154,
+              "startedAt": "2022-07-28T09:14:58.169Z",
+              "screenshots": [
+                {
+                  "name": "my-image",
+                  "takenAt": "2022-07-28T09:14:59.657Z",
+                  "path": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\screenshots\\2-advanced-examples\\misc.cy.js\\my-image.png",
+                  "height": 1816,
+                  "width": 1000
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": [
+            "Misc",
+            "Cypress.Screenshot",
+            "Cypress.Screenshot.defaults() - change default config of screenshots"
+          ],
+          "state": "passed",
+          "body": "function () {\n      Cypress.Screenshot.defaults({\n        blackout: ['.foo'],\n        capture: 'viewport',\n        clip: {\n          x: 0,\n          y: 0,\n          width: 200,\n          height: 200\n        },\n        scale: false,\n        disableTimersAndAnimations: true,\n        screenshotOnRunFailure: true,\n\n        onBeforeScreenshot() {},\n\n        onAfterScreenshot() {}\n\n      });\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 14951,
+              "duration": 1005,
+              "startedAt": "2022-07-28T09:15:01.336Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\misc.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "misc.cy.js",
+        "fileName": "misc",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/misc.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/misc.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\misc.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/misc.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 3,
+        "passes": 3,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 11033,
+        "startedAt": "2022-07-28T09:15:15.412Z",
+        "endedAt": "2022-07-28T09:15:26.445Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 3,
+        "passes": 3,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:15:15.446Z",
+        "end": "2022-07-28T09:15:26.536Z",
+        "duration": 11090
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io');\n    cy.get('.navbar-nav').contains('Commands').click();\n    cy.get('.dropdown-menu').contains('Navigation').click();\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Navigation",
+            "cy.go() - go back or forward in the browser's history"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/go\n    cy.location('pathname').should('include', 'navigation');\n    cy.go('back');\n    cy.location('pathname').should('not.include', 'navigation');\n    cy.go('forward');\n    cy.location('pathname').should('include', 'navigation'); // clicking back\n\n    cy.go(-1);\n    cy.location('pathname').should('not.include', 'navigation'); // clicking forward\n\n    cy.go(1);\n    cy.location('pathname').should('include', 'navigation');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 6432,
+              "duration": 4712,
+              "startedAt": "2022-07-28T09:15:18.530Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Navigation",
+            "cy.reload() - reload the page"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/reload\n    cy.reload(); // reload the page without using the cache\n\n    cy.reload(true);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 11200,
+              "duration": 1674,
+              "startedAt": "2022-07-28T09:15:23.298Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Navigation",
+            "cy.visit() - visit a remote url"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/visit\n    // Visit any sub-domain of your current domain\n    // Pass options to the visit\n    cy.visit('https://example.cypress.io/commands/navigation', {\n      timeout: 50000,\n\n      // increase total time for the visit to resolve\n      onBeforeLoad(contentWindow) {\n        // contentWindow is the remote page's window object\n        expect(typeof contentWindow === 'object').to.be.true;\n      },\n\n      onLoad(contentWindow) {\n        // contentWindow is the remote page's window object\n        expect(typeof contentWindow === 'object').to.be.true;\n      }\n\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 12878,
+              "duration": 1463,
+              "startedAt": "2022-07-28T09:15:24.976Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\navigation.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "navigation.cy.js",
+        "fileName": "navigation",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/navigation.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/navigation.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\navigation.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/navigation.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 6,
+        "passes": 6,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 18957,
+        "startedAt": "2022-07-28T09:15:39.303Z",
+        "endedAt": "2022-07-28T09:15:58.260Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 6,
+        "passes": 6,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:15:39.308Z",
+        "end": "2022-07-28T09:15:58.330Z",
+        "duration": 19022
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/network-requests');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Network Requests",
+            "cy.request() - make an XHR request"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/request\n    cy.request('https://jsonplaceholder.cypress.io/comments').should(response => {\n      expect(response.status).to.eq(200); // the server sometimes gets an extra comment posted from another machine\n      // which gets returned as 1 extra object\n\n      expect(response.body).to.have.property('length').and.be.oneOf([500, 501]);\n      expect(response).to.have.property('headers');\n      expect(response).to.have.property('duration');\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 7243,
+              "duration": 2803,
+              "startedAt": "2022-07-28T09:15:43.309Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Network Requests",
+            "cy.request() - verify response using BDD syntax"
+          ],
+          "state": "passed",
+          "body": "() => {\n    cy.request('https://jsonplaceholder.cypress.io/comments').then(response => {\n      // https://on.cypress.io/assertions\n      expect(response).property('status').to.equal(200);\n      expect(response).property('body').to.have.property('length').and.be.oneOf([500, 501]);\n      expect(response).to.include.keys('headers', 'duration');\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 10097,
+              "duration": 2828,
+              "startedAt": "2022-07-28T09:15:46.163Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Network Requests",
+            "cy.request() with query parameters"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // will execute request\n    // https://jsonplaceholder.cypress.io/comments?postId=1&id=3\n    cy.request({\n      url: 'https://jsonplaceholder.cypress.io/comments',\n      qs: {\n        postId: 1,\n        id: 3\n      }\n    }).its('body').should('be.an', 'array').and('have.length', 1).its('0') // yields first element of the array\n    .should('contain', {\n      postId: 1,\n      id: 3\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 12937,
+              "duration": 1364,
+              "startedAt": "2022-07-28T09:15:49.003Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Network Requests",
+            "cy.request() - pass result to the second request"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // first, let's find out the userId of the first user we have\n    cy.request('https://jsonplaceholder.cypress.io/users?_limit=1').its('body') // yields the response object\n    .its('0') // yields the first element of the returned list\n    // the above two commands its('body').its('0')\n    // can be written as its('body.0')\n    // if you do not care about TypeScript checks\n    .then(user => {\n      expect(user).property('id').to.be.a('number'); // make a new post on behalf of the user\n\n      cy.request('POST', 'https://jsonplaceholder.cypress.io/posts', {\n        userId: user.id,\n        title: 'Cypress Test Runner',\n        body: 'Fast, easy and reliable testing for anything that runs in a browser.'\n      });\n    }) // note that the value here is the returned value of the 2nd request\n    // which is the new post object\n    .then(response => {\n      expect(response).property('status').to.equal(201); // new entity created\n\n      expect(response).property('body').to.contain({\n        title: 'Cypress Test Runner'\n      }); // we don't know the exact post id - only that it will be > 100\n      // since JSONPlaceholder has built-in 100 posts\n\n      expect(response.body).property('id').to.be.a('number').and.to.be.gt(100); // we don't know the user id here - since it was in above closure\n      // so in this test just confirm that the property is there\n\n      expect(response.body).property('userId').to.be.a('number');\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 14313,
+              "duration": 2482,
+              "startedAt": "2022-07-28T09:15:50.379Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Network Requests",
+            "cy.request() - save response in the shared test context"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/variables-and-aliases\n    cy.request('https://jsonplaceholder.cypress.io/users?_limit=1').its('body').its('0') // yields the first element of the returned list\n    .as('user') // saves the object in the test context\n    .then(function () {\n      // NOTE 👀\n      //  By the time this callback runs the \"as('user')\" command\n      //  has saved the user object in the test context.\n      //  To access the test context we need to use\n      //  the \"function () { ... }\" callback form,\n      //  otherwise \"this\" points at a wrong or undefined object!\n      cy.request('POST', 'https://jsonplaceholder.cypress.io/posts', {\n        userId: this.user.id,\n        title: 'Cypress Test Runner',\n        body: 'Fast, easy and reliable testing for anything that runs in a browser.'\n      }).its('body').as('post'); // save the new post from the response\n    }).then(function () {\n      // When this callback runs, both \"cy.request\" API commands have finished\n      // and the test context has \"user\" and \"post\" objects set.\n      // Let's verify them.\n      expect(this.post, 'post has the right user id').property('userId').to.equal(this.user.id);\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 16802,
+              "duration": 1897,
+              "startedAt": "2022-07-28T09:15:52.868Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Network Requests",
+            "cy.intercept() - route responses to matching requests"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/intercept\n    let message = 'whoa, this comment does not exist'; // Listen to GET to comments/1\n\n    cy.intercept('GET', '**/comments/*').as('getComment'); // we have code that gets a comment when\n    // the button is clicked in scripts.js\n\n    cy.get('.network-btn').click(); // https://on.cypress.io/wait\n\n    cy.wait('@getComment').its('response.statusCode').should('be.oneOf', [200, 304]); // Listen to POST to comments\n\n    cy.intercept('POST', '**/comments').as('postComment'); // we have code that posts a comment when\n    // the button is clicked in scripts.js\n\n    cy.get('.network-post').click();\n    cy.wait('@postComment').should(({\n      request,\n      response\n    }) => {\n      expect(request.body).to.include('email');\n      expect(request.headers).to.have.property('content-type');\n      expect(response && response.body).to.have.property('name', 'Using POST in cy.intercept()');\n    }); // Stub a response to PUT comments/ ****\n\n    cy.intercept({\n      method: 'PUT',\n      url: '**/comments/*'\n    }, {\n      statusCode: 404,\n      body: {\n        error: message\n      },\n      headers: {\n        'access-control-allow-origin': '*'\n      },\n      delayMs: 500\n    }).as('putComment'); // we have code that puts a comment when\n    // the button is clicked in scripts.js\n\n    cy.get('.network-put').click();\n    cy.wait('@putComment'); // our 404 statusCode logic in scripts.js executed\n\n    cy.get('.network-put-comment').should('contain', message);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 18704,
+              "duration": 3457,
+              "startedAt": "2022-07-28T09:15:54.770Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\network_requests.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "network_requests.cy.js",
+        "fileName": "network_requests",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/network_requests.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/network_requests.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\network_requests.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/network_requests.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 5,
+        "passes": 5,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 10298,
+        "startedAt": "2022-07-28T09:16:12.324Z",
+        "endedAt": "2022-07-28T09:16:22.622Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 5,
+        "passes": 5,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:16:12.347Z",
+        "end": "2022-07-28T09:16:22.698Z",
+        "duration": 10351
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/querying');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Querying",
+            "cy.get() - query DOM elements"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/get\n    cy.get('#query-btn').should('contain', 'Button');\n    cy.get('.query-btn').should('contain', 'Button');\n    cy.get('#querying .well>button:first').should('contain', 'Button'); //              ↲\n    // Use CSS selectors just like jQuery\n\n    cy.get('[data-test-id=\"test-example\"]').should('have.class', 'example'); // 'cy.get()' yields jQuery object, you can get its attribute\n    // by invoking `.attr()` method\n\n    cy.get('[data-test-id=\"test-example\"]').invoke('attr', 'data-test-id').should('equal', 'test-example'); // or you can get element's CSS property\n\n    cy.get('[data-test-id=\"test-example\"]').invoke('css', 'position').should('equal', 'static'); // or use assertions directly during 'cy.get()'\n    // https://on.cypress.io/assertions\n\n    cy.get('[data-test-id=\"test-example\"]').should('have.attr', 'data-test-id', 'test-example').and('have.css', 'position', 'static');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 6284,
+              "duration": 2270,
+              "startedAt": "2022-07-28T09:16:15.432Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Querying",
+            "cy.contains() - query DOM elements with matching content"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/contains\n    cy.get('.query-list').contains('bananas').should('have.class', 'third'); // we can pass a regexp to `.contains()`\n\n    cy.get('.query-list').contains(/^b\\w+/).should('have.class', 'third');\n    cy.get('.query-list').contains('apples').should('have.class', 'first'); // passing a selector to contains will\n    // yield the selector containing the text\n\n    cy.get('#querying').contains('ul', 'oranges').should('have.class', 'query-list');\n    cy.get('.query-button').contains('Save Form').should('have.class', 'btn');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 8571,
+              "duration": 1269,
+              "startedAt": "2022-07-28T09:16:17.719Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Querying",
+            ".within() - query DOM elements within a specific element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/within\n    cy.get('.query-form').within(() => {\n      cy.get('input:first').should('have.attr', 'placeholder', 'Email');\n      cy.get('input:last').should('have.attr', 'placeholder', 'Password');\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 9847,
+              "duration": 752,
+              "startedAt": "2022-07-28T09:16:18.995Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Querying",
+            "cy.root() - query the root DOM element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/root\n    // By default, root is the document\n    cy.root().should('match', 'html');\n    cy.get('.query-ul').within(() => {\n      // In this within, the root is now the ul DOM element\n      cy.root().should('have.class', 'query-ul');\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 10655,
+              "duration": 873,
+              "startedAt": "2022-07-28T09:16:19.803Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Querying",
+            "best practices - selecting elements"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/best-practices#Selecting-Elements\n    cy.get('[data-cy=best-practices-selecting-elements]').within(() => {\n      // Worst - too generic, no context\n      cy.get('button').click(); // Bad. Coupled to styling. Highly subject to change.\n\n      cy.get('.btn.btn-large').click(); // Average. Coupled to the `name` attribute which has HTML semantics.\n\n      cy.get('[name=submission]').click(); // Better. But still coupled to styling or JS event listeners.\n\n      cy.get('#main').click(); // Slightly better. Uses an ID but also ensures the element\n      // has an ARIA role attribute\n\n      cy.get('#main[role=button]').click(); // Much better. But still coupled to text content that may change.\n\n      cy.contains('Submit').click(); // Best. Insulated from all changes.\n\n      cy.get('[data-cy=submit]').click();\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 11532,
+              "duration": 1908,
+              "startedAt": "2022-07-28T09:16:20.680Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\querying.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "querying.cy.js",
+        "fileName": "querying",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/querying.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/querying.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\querying.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/querying.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 7,
+        "passes": 7,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 11230,
+        "startedAt": "2022-07-28T09:16:34.180Z",
+        "endedAt": "2022-07-28T09:16:45.410Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 7,
+        "passes": 7,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:16:34.185Z",
+        "end": "2022-07-28T09:16:45.602Z",
+        "duration": 11417
+      },
+      "hooks": [],
+      "tests": [
+        {
+          "title": [
+            "Spies, Stubs, and Clock",
+            "cy.spy() - wrap a method in a spy"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/spy\n    cy.visit('https://example.cypress.io/commands/spies-stubs-clocks');\n    const obj = {\n      foo() {}\n\n    };\n    const spy = cy.spy(obj, 'foo').as('anyArgs');\n    obj.foo();\n    expect(spy).to.be.called;\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 7246,
+              "duration": 1065,
+              "startedAt": "2022-07-28T09:16:38.185Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Spies, Stubs, and Clock",
+            "cy.spy() retries until assertions pass"
+          ],
+          "state": "passed",
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/spies-stubs-clocks');\n    const obj = {\n      /**\r\n       * Prints the argument passed\r\n       * @param x {any}\r\n      */\n      foo(x) {\n        console.log('obj.foo called with', x);\n      }\n\n    };\n    cy.spy(obj, 'foo').as('foo');\n    setTimeout(() => {\n      obj.foo('first');\n    }, 500);\n    setTimeout(() => {\n      obj.foo('second');\n    }, 2500);\n    cy.get('@foo').should('have.been.calledTwice');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 8343,
+              "duration": 2777,
+              "startedAt": "2022-07-28T09:16:39.282Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Spies, Stubs, and Clock",
+            "cy.stub() - create a stub and/or replace a function with stub"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/stub\n    cy.visit('https://example.cypress.io/commands/spies-stubs-clocks');\n    const obj = {\n      /**\r\n       * prints both arguments to the console\r\n       * @param a {string}\r\n       * @param b {string}\r\n      */\n      foo(a, b) {\n        console.log('a', a, 'b', b);\n      }\n\n    };\n    const stub = cy.stub(obj, 'foo').as('foo');\n    obj.foo('foo', 'bar');\n    expect(stub).to.be.called;\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 11133,
+              "duration": 843,
+              "startedAt": "2022-07-28T09:16:42.072Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Spies, Stubs, and Clock",
+            "cy.clock() - control time in the browser"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/clock\n    // create the date in UTC so its always the same\n    // no matter what local timezone the browser is running in\n    const now = new Date(Date.UTC(2017, 2, 14)).getTime();\n    cy.clock(now);\n    cy.visit('https://example.cypress.io/commands/spies-stubs-clocks');\n    cy.get('#clock-div').click().should('have.text', '1489449600');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 11983,
+              "duration": 867,
+              "startedAt": "2022-07-28T09:16:42.922Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Spies, Stubs, and Clock",
+            "cy.tick() - move time in the browser"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/tick\n    // create the date in UTC so its always the same\n    // no matter what local timezone the browser is running in\n    const now = new Date(Date.UTC(2017, 2, 14)).getTime();\n    cy.clock(now);\n    cy.visit('https://example.cypress.io/commands/spies-stubs-clocks');\n    cy.get('#tick-div').click().should('have.text', '1489449600');\n    cy.tick(10000); // 10 seconds passed\n\n    cy.get('#tick-div').click().should('have.text', '1489449610');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 12900,
+              "duration": 1044,
+              "startedAt": "2022-07-28T09:16:43.839Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Spies, Stubs, and Clock",
+            "cy.stub() matches depending on arguments"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // see all possible matchers at\n    // https://sinonjs.org/releases/latest/matchers/\n    const greeter = {\n      /**\r\n       * Greets a person\r\n       * @param {string} name\r\n      */\n      greet(name) {\n        return `Hello, ${name}!`;\n      }\n\n    };\n    cy.stub(greeter, 'greet').callThrough() // if you want non-matched calls to call the real method\n    .withArgs(Cypress.sinon.match.string).returns('Hi').withArgs(Cypress.sinon.match.number).throws(new Error('Invalid name'));\n    expect(greeter.greet('World')).to.equal('Hi');\n    expect(() => greeter.greet(42)).to.throw('Invalid name');\n    expect(greeter.greet).to.have.been.calledTwice; // non-matched calls goes the actual method\n\n    expect(greeter.greet()).to.equal('Hello, undefined!');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 13949,
+              "duration": 205,
+              "startedAt": "2022-07-28T09:16:44.888Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Spies, Stubs, and Clock",
+            "matches call arguments using Sinon matchers"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // see all possible matchers at\n    // https://sinonjs.org/releases/latest/matchers/\n    const calculator = {\n      /**\r\n       * returns the sum of two arguments\r\n       * @param a {number}\r\n       * @param b {number}\r\n      */\n      add(a, b) {\n        return a + b;\n      }\n\n    };\n    const spy = cy.spy(calculator, 'add').as('add');\n    expect(calculator.add(2, 3)).to.equal(5); // if we want to assert the exact values used during the call\n\n    expect(spy).to.be.calledWith(2, 3); // let's confirm \"add\" method was called with two numbers\n\n    expect(spy).to.be.calledWith(Cypress.sinon.match.number, Cypress.sinon.match.number); // alternatively, provide the value to match\n\n    expect(spy).to.be.calledWith(Cypress.sinon.match(2), Cypress.sinon.match(3)); // match any value\n\n    expect(spy).to.be.calledWith(Cypress.sinon.match.any, 3); // match any value from a list\n\n    expect(spy).to.be.calledWith(Cypress.sinon.match.in([1, 2, 3]), 3);\n    /**\r\n     * Returns true if the given number is even\r\n     * @param {number} x\r\n     */\n\n    const isEven = x => x % 2 === 0; // expect the value to pass a custom predicate function\n    // the second argument to \"sinon.match(predicate, message)\" is\n    // shown if the predicate does not pass and assertion fails\n\n\n    expect(spy).to.be.calledWith(Cypress.sinon.match(isEven, 'isEven'), 3);\n    /**\r\n     * Returns a function that checks if a given number is larger than the limit\r\n     * @param {number} limit\r\n     * @returns {(x: number) => boolean}\r\n     */\n\n    const isGreaterThan = limit => x => x > limit;\n    /**\r\n     * Returns a function that checks if a given number is less than the limit\r\n     * @param {number} limit\r\n     * @returns {(x: number) => boolean}\r\n     */\n\n\n    const isLessThan = limit => x => x < limit; // you can combine several matchers using \"and\", \"or\"\n\n\n    expect(spy).to.be.calledWith(Cypress.sinon.match.number, Cypress.sinon.match(isGreaterThan(2), '> 2').and(Cypress.sinon.match(isLessThan(4), '< 4')));\n    expect(spy).to.be.calledWith(Cypress.sinon.match.number, Cypress.sinon.match(isGreaterThan(200), '> 200').or(Cypress.sinon.match(3))); // matchers can be used from BDD assertions\n\n    cy.get('@add').should('have.been.calledWith', Cypress.sinon.match.number, Cypress.sinon.match(3)); // you can alias matchers for shorter test code\n\n    const {\n      match: M\n    } = Cypress.sinon;\n    cy.get('@add').should('have.been.calledWith', M.number, M(3));\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 14188,
+              "duration": 277,
+              "startedAt": "2022-07-28T09:16:45.127Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\spies_stubs_clocks.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "spies_stubs_clocks.cy.js",
+        "fileName": "spies_stubs_clocks",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/spies_stubs_clocks.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/spies_stubs_clocks.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\spies_stubs_clocks.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/spies_stubs_clocks.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 18,
+        "passes": 18,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 18552,
+        "startedAt": "2022-07-28T09:17:01.102Z",
+        "endedAt": "2022-07-28T09:17:19.654Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 18,
+        "passes": 18,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:17:01.107Z",
+        "end": "2022-07-28T09:17:19.925Z",
+        "duration": 18818
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/traversal');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Traversal",
+            ".children() - get child DOM elements"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/children\n    cy.get('.traversal-breadcrumb').children('.active').should('contain', 'Data');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 7477,
+              "duration": 1615,
+              "startedAt": "2022-07-28T09:17:05.283Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".closest() - get closest ancestor DOM element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/closest\n    cy.get('.traversal-badge').closest('ul').should('have.class', 'list-group');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 9106,
+              "duration": 797,
+              "startedAt": "2022-07-28T09:17:06.912Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".eq() - get a DOM element at a specific index"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/eq\n    cy.get('.traversal-list>li').eq(1).should('contain', 'siamese');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 9973,
+              "duration": 599,
+              "startedAt": "2022-07-28T09:17:07.779Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".filter() - get DOM elements that match the selector"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/filter\n    cy.get('.traversal-nav>li').filter('.active').should('contain', 'About');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 10577,
+              "duration": 572,
+              "startedAt": "2022-07-28T09:17:08.383Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".find() - get descendant DOM elements of the selector"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/find\n    cy.get('.traversal-pagination').find('li').find('a').should('have.length', 7);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 11153,
+              "duration": 952,
+              "startedAt": "2022-07-28T09:17:08.959Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".first() - get first DOM element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/first\n    cy.get('.traversal-table td').first().should('contain', '1');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 12110,
+              "duration": 1182,
+              "startedAt": "2022-07-28T09:17:09.916Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".last() - get last DOM element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/last\n    cy.get('.traversal-buttons .btn').last().should('contain', 'Submit');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 13295,
+              "duration": 597,
+              "startedAt": "2022-07-28T09:17:11.101Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".next() - get next sibling DOM element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/next\n    cy.get('.traversal-ul').contains('apples').next().should('contain', 'oranges');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 13897,
+              "duration": 789,
+              "startedAt": "2022-07-28T09:17:11.703Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".nextAll() - get all next sibling DOM elements"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/nextall\n    cy.get('.traversal-next-all').contains('oranges').nextAll().should('have.length', 3);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 14690,
+              "duration": 678,
+              "startedAt": "2022-07-28T09:17:12.496Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".nextUntil() - get next sibling DOM elements until next el"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/nextuntil\n    cy.get('#veggies').nextUntil('#nuts').should('have.length', 3);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 15374,
+              "duration": 681,
+              "startedAt": "2022-07-28T09:17:13.180Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".not() - remove DOM elements from set of DOM elements"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/not\n    cy.get('.traversal-disabled .btn').not('[disabled]').should('not.contain', 'Disabled');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 16063,
+              "duration": 750,
+              "startedAt": "2022-07-28T09:17:13.869Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".parent() - get parent DOM element from DOM elements"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/parent\n    cy.get('.traversal-mark').parent().should('contain', 'Morbi leo risus');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 16817,
+              "duration": 646,
+              "startedAt": "2022-07-28T09:17:14.623Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".parents() - get parent DOM elements from DOM elements"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/parents\n    cy.get('.traversal-cite').parents().should('match', 'blockquote');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 17469,
+              "duration": 783,
+              "startedAt": "2022-07-28T09:17:15.275Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".parentsUntil() - get parent DOM elements from DOM elements until el"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/parentsuntil\n    cy.get('.clothes-nav').find('.active').parentsUntil('.clothes-nav').should('have.length', 2);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 18256,
+              "duration": 631,
+              "startedAt": "2022-07-28T09:17:16.062Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".prev() - get previous sibling DOM element"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/prev\n    cy.get('.birds').find('.active').prev().should('contain', 'Lorikeets');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 18891,
+              "duration": 589,
+              "startedAt": "2022-07-28T09:17:16.697Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".prevAll() - get all previous sibling DOM elements"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/prevall\n    cy.get('.fruits-list').find('.third').prevAll().should('have.length', 2);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 19484,
+              "duration": 691,
+              "startedAt": "2022-07-28T09:17:17.290Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".prevUntil() - get all previous sibling DOM elements until el"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/prevuntil\n    cy.get('.foods-list').find('#nuts').prevUntil('#veggies').should('have.length', 3);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 20179,
+              "duration": 754,
+              "startedAt": "2022-07-28T09:17:17.985Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Traversal",
+            ".siblings() - get all sibling DOM elements"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/siblings\n    cy.get('.traversal-pills .active').siblings().should('have.length', 2);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 20936,
+              "duration": 906,
+              "startedAt": "2022-07-28T09:17:18.742Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\traversal.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "traversal.cy.js",
+        "fileName": "traversal",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/traversal.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/traversal.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\traversal.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/traversal.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 5,
+        "passes": 5,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 11664,
+        "startedAt": "2022-07-28T09:17:34.664Z",
+        "endedAt": "2022-07-28T09:17:46.328Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 5,
+        "passes": 5,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:17:34.694Z",
+        "end": "2022-07-28T09:17:46.438Z",
+        "duration": 11744
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/utilities');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Utilities",
+            "Cypress._ - call a lodash method"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/_\n    cy.request('https://jsonplaceholder.cypress.io/users').then(response => {\n      let ids = Cypress._.chain(response.body).map('id').take(3).value();\n\n      expect(ids).to.deep.eq([1, 2, 3]);\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 8177,
+              "duration": 1785,
+              "startedAt": "2022-07-28T09:17:39.614Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Utilities",
+            "Cypress.$ - call a jQuery method"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/$\n    let $li = Cypress.$('.utility-jquery li:first');\n    cy.wrap($li).should('not.have.class', 'active').click().should('have.class', 'active');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 9972,
+              "duration": 812,
+              "startedAt": "2022-07-28T09:17:41.409Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Utilities",
+            "Cypress.Blob - blob utilities and base64 string conversion"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/blob\n    cy.get('.utility-blob').then($div => {\n      // https://github.com/nolanlawson/blob-util#imgSrcToDataURL\n      // get the dataUrl string for the javascript-logo\n      return Cypress.Blob.imgSrcToDataURL('https://example.cypress.io/assets/img/javascript-logo.png', undefined, 'anonymous').then(dataUrl => {\n        // create an <img> element and set its src to the dataUrl\n        let img = Cypress.$('<img />', {\n          src: dataUrl\n        }); // need to explicitly return cy here since we are initially returning\n        // the Cypress.Blob.imgSrcToDataURL promise to our test\n        // append the image\n\n        $div.append(img);\n        cy.get('.utility-blob img').click().should('have.attr', 'src', dataUrl);\n      });\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 10792,
+              "duration": 1583,
+              "startedAt": "2022-07-28T09:17:42.229Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Utilities",
+            "Cypress.minimatch - test out glob patterns against strings"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/minimatch\n    let matching = Cypress.minimatch('/users/1/comments', '/users/*/comments', {\n      matchBase: true\n    });\n    expect(matching, 'matching wildcard').to.be.true;\n    matching = Cypress.minimatch('/users/1/comments/2', '/users/*/comments', {\n      matchBase: true\n    });\n    expect(matching, 'comments').to.be.false; // ** matches against all downstream path segments\n\n    matching = Cypress.minimatch('/foo/bar/baz/123/quux?a=b&c=2', '/foo/**', {\n      matchBase: true\n    });\n    expect(matching, 'comments').to.be.true; // whereas * matches only the next path segment\n\n    matching = Cypress.minimatch('/foo/bar/baz/123/quux?a=b&c=2', '/foo/*', {\n      matchBase: false\n    });\n    expect(matching, 'comments').to.be.false;\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 12386,
+              "duration": 627,
+              "startedAt": "2022-07-28T09:17:43.823Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Utilities",
+            "Cypress.Promise - instantiate a bluebird promise"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/promise\n    let waited = false;\n    /**\r\n     * @return Bluebird<string>\r\n     */\n\n    function waitOneSecond() {\n      // return a promise that resolves after 1 second\n      return new Cypress.Promise((resolve, reject) => {\n        setTimeout(() => {\n          // set waited to true\n          waited = true; // resolve with 'foo' string\n\n          resolve('foo');\n        }, 1000);\n      });\n    }\n\n    cy.then(() => {\n      // return a promise to cy.then() that\n      // is awaited until it resolves\n      return waitOneSecond().then(str => {\n        expect(str).to.eq('foo');\n        expect(waited).to.be.true;\n      });\n    });\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 13018,
+              "duration": 1870,
+              "startedAt": "2022-07-28T09:17:44.455Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\utilities.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "utilities.cy.js",
+        "fileName": "utilities",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/utilities.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/utilities.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\utilities.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/utilities.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 1,
+        "passes": 1,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 10193,
+        "startedAt": "2022-07-28T09:17:59.355Z",
+        "endedAt": "2022-07-28T09:18:09.548Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 1,
+        "passes": 1,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:17:59.379Z",
+        "end": "2022-07-28T09:18:09.660Z",
+        "duration": 10281
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/viewport');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Viewport",
+            "cy.viewport() - set the viewport size and dimension"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/viewport\n    cy.get('#navbar').should('be.visible');\n    cy.viewport(320, 480); // the navbar should have collapse since our screen is smaller\n\n    cy.get('#navbar').should('not.be.visible');\n    cy.get('.navbar-toggle').should('be.visible').click();\n    cy.get('.nav').find('a').should('be.visible'); // lets see what our app looks like on a super large screen\n\n    cy.viewport(2999, 2999); // cy.viewport() accepts a set of preset sizes\n    // to easily set the screen to a device's width and height\n    // We added a cy.wait() between each viewport change so you can see\n    // the change otherwise it is a little too fast to see :)\n\n    cy.viewport('macbook-15');\n    cy.wait(200);\n    cy.viewport('macbook-13');\n    cy.wait(200);\n    cy.viewport('macbook-11');\n    cy.wait(200);\n    cy.viewport('ipad-2');\n    cy.wait(200);\n    cy.viewport('ipad-mini');\n    cy.wait(200);\n    cy.viewport('iphone-6+');\n    cy.wait(200);\n    cy.viewport('iphone-6');\n    cy.wait(200);\n    cy.viewport('iphone-5');\n    cy.wait(200);\n    cy.viewport('iphone-4');\n    cy.wait(200);\n    cy.viewport('iphone-3');\n    cy.wait(200); // cy.viewport() accepts an orientation for all presets\n    // the default orientation is 'portrait'\n\n    cy.viewport('ipad-2', 'portrait');\n    cy.wait(200);\n    cy.viewport('iphone-4', 'landscape');\n    cy.wait(200); // The viewport will be reset back to the default dimensions\n    // in between tests (the  default can be set in cypress.config.{js|ts})\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 7463,
+              "duration": 5824,
+              "startedAt": "2022-07-28T09:18:03.662Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\viewport.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "viewport.cy.js",
+        "fileName": "viewport",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/viewport.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/viewport.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\viewport.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/viewport.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 2,
+        "passes": 2,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 13206,
+        "startedAt": "2022-07-28T09:18:21.565Z",
+        "endedAt": "2022-07-28T09:18:34.771Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 2,
+        "passes": 2,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:18:21.570Z",
+        "end": "2022-07-28T09:18:34.863Z",
+        "duration": 13293
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/waiting');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Waiting",
+            "cy.wait() - wait for a specific amount of time"
+          ],
+          "state": "passed",
+          "body": "() => {\n    cy.get('.wait-input1').type('Wait 1000ms after typing');\n    cy.wait(1000);\n    cy.get('.wait-input2').type('Wait 1000ms after typing');\n    cy.wait(1000);\n    cy.get('.wait-input3').type('Wait 1000ms after typing');\n    cy.wait(1000);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 7451,
+              "duration": 6877,
+              "startedAt": "2022-07-28T09:18:25.698Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Waiting",
+            "cy.wait() - wait for a specific route"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // Listen to GET to comments/1\n    cy.intercept('GET', '**/comments/*').as('getComment'); // we have code that gets a comment when\n    // the button is clicked in scripts.js\n\n    cy.get('.network-btn').click(); // wait for GET comments/1\n\n    cy.wait('@getComment').its('response.statusCode').should('be.oneOf', [200, 304]);\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 14411,
+              "duration": 2102,
+              "startedAt": "2022-07-28T09:18:32.658Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\waiting.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "waiting.cy.js",
+        "fileName": "waiting",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/waiting.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/waiting.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\waiting.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/waiting.cy.js"
+      },
+      "shouldUploadVideo": true
+    },
+    {
+      "stats": {
+        "suites": 1,
+        "tests": 3,
+        "passes": 3,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 0,
+        "duration": 6276,
+        "startedAt": "2022-07-28T09:18:47.107Z",
+        "endedAt": "2022-07-28T09:18:53.383Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 1,
+        "tests": 3,
+        "passes": 3,
+        "pending": 0,
+        "failures": 0,
+        "start": "2022-07-28T09:18:47.112Z",
+        "end": "2022-07-28T09:18:53.437Z",
+        "duration": 6325
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    cy.visit('https://example.cypress.io/commands/window');\n  }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "Window",
+            "cy.window() - get the global window object"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/window\n    cy.window().should('have.property', 'top');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 7447,
+              "duration": 971,
+              "startedAt": "2022-07-28T09:18:51.074Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Window",
+            "cy.document() - get the document object"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/document\n    cy.document().should('have.property', 'charset').and('eq', 'UTF-8');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 8427,
+              "duration": 780,
+              "startedAt": "2022-07-28T09:18:52.054Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "Window",
+            "cy.title() - get the title"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // https://on.cypress.io/title\n    cy.title().should('include', 'Kitchen Sink');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 9213,
+              "duration": 538,
+              "startedAt": "2022-07-28T09:18:52.840Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\2-advanced-examples\\window.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "window.cy.js",
+        "fileName": "window",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "2-advanced-examples/window.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/2-advanced-examples/window.cy.js",
+        "relative": "cypress\\e2e\\2-advanced-examples\\window.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/2-advanced-examples/window.cy.js"
+      },
+      "shouldUploadVideo": true
+    }
+  ],
+  "browserPath": "",
+  "browserName": "electron",
+  "browserVersion": "100.0.4896.160",
+  "osName": "win32",
+  "osVersion": "10.0.19043",
+  "cypressVersion": "10.2.0",
+  "config": {
+    "setupNodeEvents": "[Function setupNodeEvents]",
+    "projectRoot": "C:\\Users\\User\\test\\cypress_totorial002",
+    "projectName": "cypress_totorial002",
+    "rawJson": {
+      "e2e": {
+        "setupNodeEvents": "[Function setupNodeEvents]"
+      },
+      "setupNodeEvents": "[Function setupNodeEvents]",
+      "envFile": {},
+      "projectRoot": "C:\\Users\\User\\test\\cypress_totorial002",
+      "projectName": "cypress_totorial002"
+    },
+    "configFile": "cypress.config.js",
+    "morgan": false,
+    "isTextTerminal": true,
+    "socketId": "0qcsuxl405",
+    "report": true,
+    "animationDistanceThreshold": 5,
+    "arch": "x64",
+    "baseUrl": null,
+    "blockHosts": null,
+    "chromeWebSecurity": true,
+    "clientCertificates": [],
+    "defaultCommandTimeout": 4000,
+    "downloadsFolder": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\downloads",
+    "env": {},
+    "execTimeout": 60000,
+    "experimentalFetchPolyfill": false,
+    "experimentalInteractiveRunEvents": false,
+    "experimentalSessionAndOrigin": false,
+    "experimentalSourceRewriting": false,
+    "fileServerFolder": "C:\\Users\\User\\test\\cypress_totorial002",
+    "fixturesFolder": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\fixtures",
+    "excludeSpecPattern": "*.hot-update.js",
+    "includeShadowDom": false,
+    "keystrokeDelay": 0,
+    "modifyObstructiveCode": true,
+    "numTestsKeptInMemory": 0,
+    "platform": "win32",
+    "pageLoadTimeout": 60000,
+    "port": 49648,
+    "projectId": null,
+    "redirectionLimit": 20,
+    "reporter": "spec",
+    "reporterOptions": null,
+    "requestTimeout": 5000,
+    "resolvedNodePath": "C:\\Program Files\\nodejs\\node.exe",
+    "resolvedNodeVersion": "16.13.1",
+    "responseTimeout": 30000,
+    "retries": {
+      "runMode": 0,
+      "openMode": 0
+    },
+    "screenshotOnRunFailure": true,
+    "screenshotsFolder": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\screenshots",
+    "slowTestThreshold": 10000,
+    "scrollBehavior": "top",
+    "supportFile": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\support\\e2e.js",
+    "supportFolder": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\support",
+    "taskTimeout": 60000,
+    "trashAssetsBeforeRuns": true,
+    "userAgent": null,
+    "video": true,
+    "videoCompression": 32,
+    "videosFolder": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos",
+    "videoUploadOnPasses": true,
+    "viewportHeight": 660,
+    "viewportWidth": 1000,
+    "waitForAnimations": true,
+    "watchForFileChanges": false,
+    "autoOpen": false,
+    "browsers": [
+      {
+        "name": "chrome",
+        "family": "chromium",
+        "channel": "stable",
+        "displayName": "Chrome",
+        "version": "103.0.5060.134",
+        "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        "minSupportedVersion": 64,
+        "majorVersion": 103
+      },
+      {
+        "name": "firefox",
+        "family": "firefox",
+        "channel": "stable",
+        "displayName": "Firefox",
+        "version": "102.0",
+        "path": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+        "minSupportedVersion": 86,
+        "majorVersion": 102
+      },
+      {
+        "name": "edge",
+        "family": "chromium",
+        "channel": "stable",
+        "displayName": "Edge",
+        "version": "103.0.1264.71",
+        "path": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+        "minSupportedVersion": 79,
+        "majorVersion": 103
+      },
+      {
+        "name": "electron",
+        "channel": "stable",
+        "family": "chromium",
+        "displayName": "Electron",
+        "version": "100.0.4896.160",
+        "path": "",
+        "majorVersion": 100,
+        "info": "Electron is the default browser that comes with Cypress. This is the default browser that runs in headless mode. Selecting this browser is useful when debugging. The version number indicates the underlying Chromium version that Electron uses."
+      }
+    ],
+    "clientRoute": "/__/",
+    "cypressBinaryRoot": "C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\10.2.0\\Cypress\\resources\\app",
+    "devServerPublicPathRoute": "/__cypress/src",
+    "hosts": null,
+    "isInteractive": true,
+    "namespace": "__cypress",
+    "reporterRoute": "/__cypress/reporter",
+    "socketIoCookie": "__socket",
+    "socketIoRoute": "/__socket",
+    "version": "10.2.0",
+    "xhrRoute": "/xhrs/",
+    "specPattern": "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}",
+    "cypressEnv": "production",
+    "resolved": {
+      "animationDistanceThreshold": {
+        "value": 5,
+        "from": "default"
+      },
+      "arch": {
+        "value": "x64",
+        "from": "default"
+      },
+      "baseUrl": {
+        "value": null,
+        "from": "default"
+      },
+      "blockHosts": {
+        "value": null,
+        "from": "default"
+      },
+      "chromeWebSecurity": {
+        "value": true,
+        "from": "default"
+      },
+      "clientCertificates": {
+        "value": [],
+        "from": "default"
+      },
+      "defaultCommandTimeout": {
+        "value": 4000,
+        "from": "default"
+      },
+      "downloadsFolder": {
+        "value": "cypress/downloads",
+        "from": "default"
+      },
+      "env": {},
+      "execTimeout": {
+        "value": 60000,
+        "from": "default"
+      },
+      "experimentalFetchPolyfill": {
+        "value": false,
+        "from": "default"
+      },
+      "experimentalInteractiveRunEvents": {
+        "value": false,
+        "from": "default"
+      },
+      "experimentalSessionAndOrigin": {
+        "value": false,
+        "from": "default"
+      },
+      "experimentalSourceRewriting": {
+        "value": false,
+        "from": "default"
+      },
+      "fileServerFolder": {
+        "value": "",
+        "from": "default"
+      },
+      "fixturesFolder": {
+        "value": "cypress/fixtures",
+        "from": "default"
+      },
+      "excludeSpecPattern": {
+        "value": "*.hot-update.js",
+        "from": "default"
+      },
+      "includeShadowDom": {
+        "value": false,
+        "from": "default"
+      },
+      "keystrokeDelay": {
+        "value": 0,
+        "from": "default"
+      },
+      "modifyObstructiveCode": {
+        "value": true,
+        "from": "default"
+      },
+      "numTestsKeptInMemory": {
+        "value": 0,
+        "from": "config"
+      },
+      "platform": {
+        "value": "win32",
+        "from": "default"
+      },
+      "pageLoadTimeout": {
+        "value": 60000,
+        "from": "default"
+      },
+      "port": {
+        "value": null,
+        "from": "default"
+      },
+      "projectId": {
+        "value": null,
+        "from": "default"
+      },
+      "redirectionLimit": {
+        "value": 20,
+        "from": "default"
+      },
+      "reporter": {
+        "value": "spec",
+        "from": "default"
+      },
+      "reporterOptions": {
+        "value": null,
+        "from": "default"
+      },
+      "requestTimeout": {
+        "value": 5000,
+        "from": "default"
+      },
+      "resolvedNodePath": {
+        "value": null,
+        "from": "default"
+      },
+      "resolvedNodeVersion": {
+        "value": null,
+        "from": "default"
+      },
+      "responseTimeout": {
+        "value": 30000,
+        "from": "default"
+      },
+      "retries": {
+        "value": {
+          "runMode": 0,
+          "openMode": 0
+        },
+        "from": "default"
+      },
+      "screenshotOnRunFailure": {
+        "value": true,
+        "from": "default"
+      },
+      "screenshotsFolder": {
+        "value": "cypress/screenshots",
+        "from": "default"
+      },
+      "slowTestThreshold": {
+        "value": 10000,
+        "from": "default"
+      },
+      "scrollBehavior": {
+        "value": "top",
+        "from": "default"
+      },
+      "supportFile": {
+        "value": "cypress/support/e2e.{js,jsx,ts,tsx}",
+        "from": "default"
+      },
+      "supportFolder": {
+        "value": false,
+        "from": "default"
+      },
+      "taskTimeout": {
+        "value": 60000,
+        "from": "default"
+      },
+      "trashAssetsBeforeRuns": {
+        "value": true,
+        "from": "default"
+      },
+      "userAgent": {
+        "value": null,
+        "from": "default"
+      },
+      "video": {
+        "value": true,
+        "from": "default"
+      },
+      "videoCompression": {
+        "value": 32,
+        "from": "default"
+      },
+      "videosFolder": {
+        "value": "cypress/videos",
+        "from": "default"
+      },
+      "videoUploadOnPasses": {
+        "value": true,
+        "from": "default"
+      },
+      "viewportHeight": {
+        "value": 660,
+        "from": "default"
+      },
+      "viewportWidth": {
+        "value": 1000,
+        "from": "default"
+      },
+      "waitForAnimations": {
+        "value": true,
+        "from": "default"
+      },
+      "watchForFileChanges": {
+        "value": false,
+        "from": "config"
+      },
+      "browsers": {
+        "value": [
+          {
+            "name": "chrome",
+            "family": "chromium",
+            "channel": "stable",
+            "displayName": "Chrome",
+            "version": "103.0.5060.134",
+            "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+            "minSupportedVersion": 64,
+            "majorVersion": 103
+          },
+          {
+            "name": "firefox",
+            "family": "firefox",
+            "channel": "stable",
+            "displayName": "Firefox",
+            "version": "102.0",
+            "path": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+            "minSupportedVersion": 86,
+            "majorVersion": 102
+          },
+          {
+            "name": "edge",
+            "family": "chromium",
+            "channel": "stable",
+            "displayName": "Edge",
+            "version": "103.0.1264.71",
+            "path": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+            "minSupportedVersion": 79,
+            "majorVersion": 103
+          },
+          {
+            "name": "electron",
+            "channel": "stable",
+            "family": "chromium",
+            "displayName": "Electron",
+            "version": "100.0.4896.160",
+            "path": "",
+            "majorVersion": 100,
+            "info": "Electron is the default browser that comes with Cypress. This is the default browser that runs in headless mode. Selecting this browser is useful when debugging. The version number indicates the underlying Chromium version that Electron uses.",
+            "isHeadless": true,
+            "isHeaded": false
+          }
+        ],
+        "from": "runtime"
+      },
+      "hosts": {
+        "value": null,
+        "from": "default"
+      },
+      "isInteractive": {
+        "value": true,
+        "from": "default"
+      },
+      "specPattern": {
+        "value": "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}",
+        "from": "default"
+      }
+    },
+    "testingType": "e2e",
+    "remote": {
+      "origin": "http://localhost:49648",
+      "strategy": "file",
+      "fileServer": "http://localhost:49649",
+      "domainName": "localhost",
+      "props": null
+    },
+    "browser": null,
+    "specs": [],
+    "proxyUrl": "http://localhost:49648",
+    "browserUrl": "http://localhost:49648/__/",
+    "reporterUrl": "http://localhost:49648/__cypress/reporter",
+    "xhrUrl": "__cypress/xhrs/",
+    "proxyServer": "http://localhost:49648",
+    "state": {}
+  },
+  "status": "finished"
+}

@@ -1,0 +1,619 @@
+{
+  "startedTestsAt": "2022-07-28T07:53:10.351Z",
+  "endedTestsAt": "2022-07-28T07:53:28.849Z",
+  "totalDuration": 18498,
+  "totalSuites": 2,
+  "totalTests": 6,
+  "totalFailed": 1,
+  "totalPassed": 5,
+  "totalPending": 0,
+  "totalSkipped": 0,
+  "runs": [
+    {
+      "stats": {
+        "suites": 2,
+        "tests": 6,
+        "passes": 5,
+        "pending": 0,
+        "skipped": 0,
+        "failures": 1,
+        "duration": 18498,
+        "startedAt": "2022-07-28T07:53:10.351Z",
+        "endedAt": "2022-07-28T07:53:28.849Z"
+      },
+      "reporter": "spec",
+      "reporterStats": {
+        "suites": 2,
+        "tests": 6,
+        "passes": 5,
+        "pending": 0,
+        "failures": 1,
+        "start": "2022-07-28T07:53:10.391Z",
+        "end": "2022-07-28T07:53:28.966Z",
+        "duration": 18575
+      },
+      "hooks": [
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n    // Cypress starts out with a blank slate for each test\n    // so we must tell it to visit our website with the `cy.visit()` command.\n    // Since we want to visit the same URL at the start of all our tests,\n    // we include it in our beforeEach function so that it runs before each test\n    cy.visit('https://example.cypress.io/todo');\n  }"
+        },
+        {
+          "hookName": "before each",
+          "title": [
+            "\"before each\" hook"
+          ],
+          "body": "() => {\n      // We'll take the command we used above to check off an element\n      // Since we want to perform multiple tests that start with checking\n      // one element, we put it in the beforeEach hook\n      // so that it runs at the start of every test.\n      cy.contains('Pay electric bill').parent().find('input[type=checkbox]').check();\n    }"
+        }
+      ],
+      "tests": [
+        {
+          "title": [
+            "example to-do app",
+            "displays two todo items by default"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // We use the `cy.get()` command to get all elements that match the selector.\n    // Then, we use `should` to assert that there are two matched items,\n    // which are the two default items.\n    cy.get('.todo-list li').should('have.length', 2); // We can go even further and check that the default todos each contain\n    // the correct text. We use the `first` and `last` functions\n    // to get just the first and last matched elements individually,\n    // and then perform an assertion with `should`.\n\n    cy.get('.todo-list li').first().should('have.text', 'Pay electric bill');\n    cy.get('.todo-list li').last().should('have.text', 'Walk the dog');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 14085,
+              "duration": 2825,
+              "startedAt": "2022-07-28T07:53:14.871Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "example to-do app",
+            "can add new todo items"
+          ],
+          "state": "failed",
+          "body": "() => {\n    // We'll store our item text in a variable so we can reuse it\n    const newItem = 'Feed the cat'; // Let's get the input element and use the `type` command to\n    // input our new list item. After typing the content of our item,\n    // we need to type the enter key as well in order to submit the input.\n    // This input has a data-test attribute so we'll use that to select the\n    // element in accordance with best practices:\n    // https://on.cypress.io/selecting-elements\n\n    cy.get('[data-test=new-todo]').type(`${newItem}{enter}`); // Now that we've typed our new item, let's check that it actually was added to the list.\n    // Since it's the newest item, it should exist as the last element in the list.\n    // In addition, with the two default items, we should have a total of 3 elements in the list.\n    // Since assertions yield the element that was asserted on,\n    // we can chain both of these assertions together into a single statement.\n\n    cy.get('.todo-list lii').should('have.length', 3).last().should('have.text', newItem);\n  }",
+          "displayError": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `.todo-list lii`, but never found it.\n    at Context.eval (https://example.cypress.io/__cypress/tests?p=cypress\\e2e\\1-getting-started\\todo.cy.js:145:30)",
+          "attempts": [
+            {
+              "state": "failed",
+              "error": {
+                "name": "AssertionError",
+                "message": "Timed out retrying after 4000ms: Expected to find element: `.todo-list lii`, but never found it.",
+                "stack": "    at Context.eval (https://example.cypress.io/__cypress/tests?p=cypress\\e2e\\1-getting-started\\todo.cy.js:145:30)",
+                "codeFrame": {
+                  "line": 55,
+                  "column": 8,
+                  "originalFile": "cypress/e2e/1-getting-started/todo.cy.js",
+                  "relativeFile": "cypress/e2e/1-getting-started/todo.cy.js",
+                  "absoluteFile": "C:\\Users\\User\\test\\cypress_totorial002/cypress/e2e/1-getting-started/todo.cy.js",
+                  "frame": "  53 |     // we can chain both of these assertions together into a single statement.\n  54 |     cy.get('.todo-list lii')\n> 55 |       .should('have.length', 3)\n     |        ^\n  56 |       .last()\n  57 |       .should('have.text', newItem)\n  58 |   })",
+                  "language": "js"
+                }
+              },
+              "videoTimestamp": 16921,
+              "duration": 5985,
+              "startedAt": "2022-07-28T07:53:17.707Z",
+              "screenshots": [
+                {
+                  "name": null,
+                  "takenAt": "2022-07-28T07:53:23.203Z",
+                  "path": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\screenshots\\todo.cy.js\\example to-do app -- can add new todo items (failed).png",
+                  "height": 720,
+                  "width": 1280
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": [
+            "example to-do app",
+            "can check off an item as completed"
+          ],
+          "state": "passed",
+          "body": "() => {\n    // In addition to using the `get` command to get an element by selector,\n    // we can also use the `contains` command to get an element by its contents.\n    // However, this will yield the <label>, which is lowest-level element that contains the text.\n    // In order to check the item, we'll find the <input> element for this <label>\n    // by traversing up the dom to the parent element. From there, we can `find`\n    // the child checkbox <input> element and use the `check` command to check it.\n    cy.contains('Pay electric bill').parent().find('input[type=checkbox]').check(); // Now that we've checked the button, we can go ahead and make sure\n    // that the list element is now marked as completed.\n    // Again we'll use `contains` to find the <label> element and then use the `parents` command\n    // to traverse multiple levels up the dom until we find the corresponding <li> element.\n    // Once we get that element, we can assert that it has the completed class.\n\n    cy.contains('Pay electric bill').parents('li').should('have.class', 'completed');\n  }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 23326,
+              "duration": 1122,
+              "startedAt": "2022-07-28T07:53:24.112Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "example to-do app",
+            "with a checked task",
+            "can filter for uncompleted tasks"
+          ],
+          "state": "passed",
+          "body": "() => {\n      // We'll click on the \"active\" button in order to\n      // display only incomplete items\n      cy.contains('Active').click(); // After filtering, we can assert that there is only the one\n      // incomplete item in the list.\n\n      cy.get('.todo-list li').should('have.length', 1).first().should('have.text', 'Walk the dog'); // For good measure, let's also assert that the task we checked off\n      // does not exist on the page.\n\n      cy.contains('Pay electric bill').should('not.exist');\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 24456,
+              "duration": 1564,
+              "startedAt": "2022-07-28T07:53:25.242Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "example to-do app",
+            "with a checked task",
+            "can filter for completed tasks"
+          ],
+          "state": "passed",
+          "body": "() => {\n      // We can perform similar steps as the test above to ensure\n      // that only completed tasks are shown\n      cy.contains('Completed').click();\n      cy.get('.todo-list li').should('have.length', 1).first().should('have.text', 'Pay electric bill');\n      cy.contains('Walk the dog').should('not.exist');\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 26053,
+              "duration": 1010,
+              "startedAt": "2022-07-28T07:53:26.839Z",
+              "screenshots": []
+            }
+          ]
+        },
+        {
+          "title": [
+            "example to-do app",
+            "with a checked task",
+            "can delete all completed tasks"
+          ],
+          "state": "passed",
+          "body": "() => {\n      // First, let's click the \"Clear completed\" button\n      // `contains` is actually serving two purposes here.\n      // First, it's ensuring that the button exists within the dom.\n      // This button only appears when at least one task is checked\n      // so this command is implicitly verifying that it does exist.\n      // Second, it selects the button so we can click it.\n      cy.contains('Clear completed').click(); // Then we can make sure that there is only one element\n      // in the list and our element does not exist\n\n      cy.get('.todo-list li').should('have.length', 1).should('not.have.text', 'Pay electric bill'); // Finally, make sure that the clear button no longer exists.\n\n      cy.contains('Clear completed').should('not.exist');\n    }",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed",
+              "error": null,
+              "videoTimestamp": 27068,
+              "duration": 990,
+              "startedAt": "2022-07-28T07:53:27.854Z",
+              "screenshots": []
+            }
+          ]
+        }
+      ],
+      "error": null,
+      "video": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos\\todo.cy.js.mp4",
+      "spec": {
+        "fileExtension": ".js",
+        "baseName": "todo.cy.js",
+        "fileName": "todo",
+        "specFileExtension": ".cy.js",
+        "relativeToCommonRoot": "todo.cy.js",
+        "specType": "integration",
+        "name": "cypress/e2e/1-getting-started/todo.cy.js",
+        "relative": "cypress\\e2e\\1-getting-started\\todo.cy.js",
+        "absolute": "C:/Users/User/test/cypress_totorial002/cypress/e2e/1-getting-started/todo.cy.js"
+      },
+      "shouldUploadVideo": true
+    }
+  ],
+  "browserPath": "",
+  "browserName": "electron",
+  "browserVersion": "100.0.4896.160",
+  "osName": "win32",
+  "osVersion": "10.0.19043",
+  "cypressVersion": "10.2.0",
+  "config": {
+    "setupNodeEvents": "[Function setupNodeEvents]",
+    "projectRoot": "C:\\Users\\User\\test\\cypress_totorial002",
+    "projectName": "cypress_totorial002",
+    "rawJson": {
+      "e2e": {
+        "setupNodeEvents": "[Function setupNodeEvents]"
+      },
+      "setupNodeEvents": "[Function setupNodeEvents]",
+      "envFile": {},
+      "projectRoot": "C:\\Users\\User\\test\\cypress_totorial002",
+      "projectName": "cypress_totorial002"
+    },
+    "configFile": "cypress.config.js",
+    "morgan": false,
+    "isTextTerminal": true,
+    "socketId": "sacw8qjx6y",
+    "report": true,
+    "animationDistanceThreshold": 5,
+    "arch": "x64",
+    "baseUrl": null,
+    "blockHosts": null,
+    "chromeWebSecurity": true,
+    "clientCertificates": [],
+    "defaultCommandTimeout": 4000,
+    "downloadsFolder": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\downloads",
+    "env": {},
+    "execTimeout": 60000,
+    "experimentalFetchPolyfill": false,
+    "experimentalInteractiveRunEvents": false,
+    "experimentalSessionAndOrigin": false,
+    "experimentalSourceRewriting": false,
+    "fileServerFolder": "C:\\Users\\User\\test\\cypress_totorial002",
+    "fixturesFolder": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\fixtures",
+    "excludeSpecPattern": "*.hot-update.js",
+    "includeShadowDom": false,
+    "keystrokeDelay": 0,
+    "modifyObstructiveCode": true,
+    "numTestsKeptInMemory": 0,
+    "platform": "win32",
+    "pageLoadTimeout": 60000,
+    "port": 60311,
+    "projectId": null,
+    "redirectionLimit": 20,
+    "reporter": "spec",
+    "reporterOptions": null,
+    "requestTimeout": 5000,
+    "resolvedNodePath": "C:\\Program Files\\nodejs\\node.exe",
+    "resolvedNodeVersion": "16.13.1",
+    "responseTimeout": 30000,
+    "retries": {
+      "runMode": 0,
+      "openMode": 0
+    },
+    "screenshotOnRunFailure": true,
+    "screenshotsFolder": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\screenshots",
+    "slowTestThreshold": 10000,
+    "scrollBehavior": "top",
+    "supportFile": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\support\\e2e.js",
+    "supportFolder": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\support",
+    "taskTimeout": 60000,
+    "trashAssetsBeforeRuns": true,
+    "userAgent": null,
+    "video": true,
+    "videoCompression": 32,
+    "videosFolder": "C:\\Users\\User\\test\\cypress_totorial002\\cypress\\videos",
+    "videoUploadOnPasses": true,
+    "viewportHeight": 660,
+    "viewportWidth": 1000,
+    "waitForAnimations": true,
+    "watchForFileChanges": false,
+    "autoOpen": false,
+    "browsers": [
+      {
+        "name": "chrome",
+        "family": "chromium",
+        "channel": "stable",
+        "displayName": "Chrome",
+        "version": "103.0.5060.134",
+        "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        "minSupportedVersion": 64,
+        "majorVersion": 103
+      },
+      {
+        "name": "firefox",
+        "family": "firefox",
+        "channel": "stable",
+        "displayName": "Firefox",
+        "version": "102.0",
+        "path": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+        "minSupportedVersion": 86,
+        "majorVersion": 102
+      },
+      {
+        "name": "edge",
+        "family": "chromium",
+        "channel": "stable",
+        "displayName": "Edge",
+        "version": "103.0.1264.71",
+        "path": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+        "minSupportedVersion": 79,
+        "majorVersion": 103
+      },
+      {
+        "name": "electron",
+        "channel": "stable",
+        "family": "chromium",
+        "displayName": "Electron",
+        "version": "100.0.4896.160",
+        "path": "",
+        "majorVersion": 100,
+        "info": "Electron is the default browser that comes with Cypress. This is the default browser that runs in headless mode. Selecting this browser is useful when debugging. The version number indicates the underlying Chromium version that Electron uses."
+      }
+    ],
+    "clientRoute": "/__/",
+    "cypressBinaryRoot": "C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\10.2.0\\Cypress\\resources\\app",
+    "devServerPublicPathRoute": "/__cypress/src",
+    "hosts": null,
+    "isInteractive": true,
+    "namespace": "__cypress",
+    "reporterRoute": "/__cypress/reporter",
+    "socketIoCookie": "__socket",
+    "socketIoRoute": "/__socket",
+    "version": "10.2.0",
+    "xhrRoute": "/xhrs/",
+    "specPattern": "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}",
+    "cypressEnv": "production",
+    "resolved": {
+      "animationDistanceThreshold": {
+        "value": 5,
+        "from": "default"
+      },
+      "arch": {
+        "value": "x64",
+        "from": "default"
+      },
+      "baseUrl": {
+        "value": null,
+        "from": "default"
+      },
+      "blockHosts": {
+        "value": null,
+        "from": "default"
+      },
+      "chromeWebSecurity": {
+        "value": true,
+        "from": "default"
+      },
+      "clientCertificates": {
+        "value": [],
+        "from": "default"
+      },
+      "defaultCommandTimeout": {
+        "value": 4000,
+        "from": "default"
+      },
+      "downloadsFolder": {
+        "value": "cypress/downloads",
+        "from": "default"
+      },
+      "env": {},
+      "execTimeout": {
+        "value": 60000,
+        "from": "default"
+      },
+      "experimentalFetchPolyfill": {
+        "value": false,
+        "from": "default"
+      },
+      "experimentalInteractiveRunEvents": {
+        "value": false,
+        "from": "default"
+      },
+      "experimentalSessionAndOrigin": {
+        "value": false,
+        "from": "default"
+      },
+      "experimentalSourceRewriting": {
+        "value": false,
+        "from": "default"
+      },
+      "fileServerFolder": {
+        "value": "",
+        "from": "default"
+      },
+      "fixturesFolder": {
+        "value": "cypress/fixtures",
+        "from": "default"
+      },
+      "excludeSpecPattern": {
+        "value": "*.hot-update.js",
+        "from": "default"
+      },
+      "includeShadowDom": {
+        "value": false,
+        "from": "default"
+      },
+      "keystrokeDelay": {
+        "value": 0,
+        "from": "default"
+      },
+      "modifyObstructiveCode": {
+        "value": true,
+        "from": "default"
+      },
+      "numTestsKeptInMemory": {
+        "value": 0,
+        "from": "config"
+      },
+      "platform": {
+        "value": "win32",
+        "from": "default"
+      },
+      "pageLoadTimeout": {
+        "value": 60000,
+        "from": "default"
+      },
+      "port": {
+        "value": null,
+        "from": "default"
+      },
+      "projectId": {
+        "value": null,
+        "from": "default"
+      },
+      "redirectionLimit": {
+        "value": 20,
+        "from": "default"
+      },
+      "reporter": {
+        "value": "spec",
+        "from": "default"
+      },
+      "reporterOptions": {
+        "value": null,
+        "from": "default"
+      },
+      "requestTimeout": {
+        "value": 5000,
+        "from": "default"
+      },
+      "resolvedNodePath": {
+        "value": null,
+        "from": "default"
+      },
+      "resolvedNodeVersion": {
+        "value": null,
+        "from": "default"
+      },
+      "responseTimeout": {
+        "value": 30000,
+        "from": "default"
+      },
+      "retries": {
+        "value": {
+          "runMode": 0,
+          "openMode": 0
+        },
+        "from": "default"
+      },
+      "screenshotOnRunFailure": {
+        "value": true,
+        "from": "default"
+      },
+      "screenshotsFolder": {
+        "value": "cypress/screenshots",
+        "from": "default"
+      },
+      "slowTestThreshold": {
+        "value": 10000,
+        "from": "default"
+      },
+      "scrollBehavior": {
+        "value": "top",
+        "from": "default"
+      },
+      "supportFile": {
+        "value": "cypress/support/e2e.{js,jsx,ts,tsx}",
+        "from": "default"
+      },
+      "supportFolder": {
+        "value": false,
+        "from": "default"
+      },
+      "taskTimeout": {
+        "value": 60000,
+        "from": "default"
+      },
+      "trashAssetsBeforeRuns": {
+        "value": true,
+        "from": "default"
+      },
+      "userAgent": {
+        "value": null,
+        "from": "default"
+      },
+      "video": {
+        "value": true,
+        "from": "default"
+      },
+      "videoCompression": {
+        "value": 32,
+        "from": "default"
+      },
+      "videosFolder": {
+        "value": "cypress/videos",
+        "from": "default"
+      },
+      "videoUploadOnPasses": {
+        "value": true,
+        "from": "default"
+      },
+      "viewportHeight": {
+        "value": 660,
+        "from": "default"
+      },
+      "viewportWidth": {
+        "value": 1000,
+        "from": "default"
+      },
+      "waitForAnimations": {
+        "value": true,
+        "from": "default"
+      },
+      "watchForFileChanges": {
+        "value": false,
+        "from": "config"
+      },
+      "browsers": {
+        "value": [
+          {
+            "name": "chrome",
+            "family": "chromium",
+            "channel": "stable",
+            "displayName": "Chrome",
+            "version": "103.0.5060.134",
+            "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+            "minSupportedVersion": 64,
+            "majorVersion": 103
+          },
+          {
+            "name": "firefox",
+            "family": "firefox",
+            "channel": "stable",
+            "displayName": "Firefox",
+            "version": "102.0",
+            "path": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+            "minSupportedVersion": 86,
+            "majorVersion": 102
+          },
+          {
+            "name": "edge",
+            "family": "chromium",
+            "channel": "stable",
+            "displayName": "Edge",
+            "version": "103.0.1264.71",
+            "path": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+            "minSupportedVersion": 79,
+            "majorVersion": 103
+          },
+          {
+            "name": "electron",
+            "channel": "stable",
+            "family": "chromium",
+            "displayName": "Electron",
+            "version": "100.0.4896.160",
+            "path": "",
+            "majorVersion": 100,
+            "info": "Electron is the default browser that comes with Cypress. This is the default browser that runs in headless mode. Selecting this browser is useful when debugging. The version number indicates the underlying Chromium version that Electron uses.",
+            "isHeadless": true,
+            "isHeaded": false
+          }
+        ],
+        "from": "runtime"
+      },
+      "hosts": {
+        "value": null,
+        "from": "default"
+      },
+      "isInteractive": {
+        "value": true,
+        "from": "default"
+      },
+      "specPattern": {
+        "value": "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}",
+        "from": "default"
+      }
+    },
+    "testingType": "e2e",
+    "remote": {
+      "origin": "http://localhost:60311",
+      "strategy": "file",
+      "fileServer": "http://localhost:60312",
+      "domainName": "localhost",
+      "props": null
+    },
+    "browser": null,
+    "specs": [],
+    "proxyUrl": "http://localhost:60311",
+    "browserUrl": "http://localhost:60311/__/",
+    "reporterUrl": "http://localhost:60311/__cypress/reporter",
+    "xhrUrl": "__cypress/xhrs/",
+    "proxyServer": "http://localhost:60311",
+    "state": {}
+  },
+  "status": "finished"
+}
