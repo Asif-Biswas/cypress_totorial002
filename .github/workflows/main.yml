@@ -1,6 +1,8 @@
 name: Cypress Tests using Cypress Docker Image
 
-on: [push, pull_request]
+on: 
+  repository_dispatch:
+  
 
 jobs:
   cypress-run:
