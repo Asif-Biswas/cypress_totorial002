@@ -3,17 +3,19 @@ name: Cypress Tests using Cypress Docker Image
 on: [push]
 
 jobs:
-  cypress-run:
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node12.18.3-chrome87-ff82
+  firefox-v10:
+    # should include Firefox browser install
+    # https://github.com/actions/virtual-environments
+    runs-on: ubuntu-18.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v4 # use the explicit version number
+      - name: Firefox
+        uses: ./
+        timeout-minutes: 3
         with:
-          # Specify Browser since container image is compile with Firefox
+          # let's show browser and system info
+          build: npx cypress info
+          working-directory: examples/v10/firefox
           browser: firefox
