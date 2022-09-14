@@ -1,5 +1,7 @@
 name: E2E on Chrome
-on: [push]
+on: 
+  repository_dispatch:
+    types: [my-event]
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04
