@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Firefox
+      - name: Chrome
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
