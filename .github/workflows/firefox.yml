@@ -2,7 +2,7 @@ name: Cypress Tests using Cypress Docker Image
 
 on:
   repository_dispatch:
-    types: [my-event]
+    types: [firefox]
 
 jobs:
   firefox-v10:
