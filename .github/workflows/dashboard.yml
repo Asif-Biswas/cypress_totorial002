@@ -1,7 +1,5 @@
 name: Firefox
-on: 
-  repository_dispatch:
-    types: [my-event]
+on: push
 jobs:
   firefox:
     runs-on: ubuntu-latest
