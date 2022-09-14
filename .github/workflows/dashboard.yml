@@ -1,21 +1,12 @@
-name: Cypress Tests using Cypress Docker Image
-
-on: 
-  repository_dispatch:
-    types: [my-event]
-    
-
+name: E2E on Chrome
+on: [push]
 jobs:
-  firefox:
-    runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node12.16.1-chrome80-ff73
-      options: --user 1001
+  cypress-run:
+    runs-on: ubuntu-20.04
+    # let's make sure our tests pass on Chrome browser
+    name: E2E on Chrome
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: Cypress run
-        uses: cypress-io/github-action@v4
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v4
         with:
           browser: chrome
