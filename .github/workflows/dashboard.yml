@@ -4,16 +4,14 @@ on:
   repository_dispatch:
     types: [my-event]
   
-
 jobs:
-  suite:
+  firefox:
     runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node12.16.1-chrome80-ff73
+      options: --user 1001
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup and run Cypress
-        uses: cypress-io/github-action@v2
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v4
         with:
           browser: firefox
-          
