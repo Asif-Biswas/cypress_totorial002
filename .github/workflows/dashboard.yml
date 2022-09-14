@@ -13,9 +13,9 @@ jobs:
       options: --user 1001
     steps:
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       
       - name: Cypress run
-      - uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v4
         with:
           browser: firefox
