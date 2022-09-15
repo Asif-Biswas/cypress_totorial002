@@ -1,8 +1,8 @@
 name: Cypress Tests 
 
-on:
-  repository_dispatch:
-    types: [chrome]
+on: push
+  #repository_dispatch:
+  #  types: [chrome]
 
 jobs:
   chrome:
@@ -13,5 +13,5 @@ jobs:
 
       - name: Chrome
         uses: cypress-io/github-action@v4
-        with:
-          browser: chrome
+        #with:
+        #  browser: chrome
