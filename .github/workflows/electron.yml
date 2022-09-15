@@ -1,0 +1,15 @@
+name: Cypress Test on Electron
+
+on:
+  repository_dispatch:
+    types: [electron]
+
+jobs:
+  chrome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Chrome
+        uses: cypress-io/github-action@v4
