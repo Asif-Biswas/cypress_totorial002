@@ -2,7 +2,7 @@ name: Cypress Test on Electron
 
 on:
   repository_dispatch:
-    #types: [electron]
+    types: [electron]
 
 jobs:
   chrome:
